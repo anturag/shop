@@ -1,0 +1,16 @@
+<div class="contacts" align="right" itemscope itemtype="http://schema.org/LocalBusiness" >
+
+    <!--contacts -->
+    <div>
+        &copy; {time()|wa_datetime:"Y"} &nbsp;
+        <a href="{$wa_url}"><span itemprop="name">{$_logo_text}</span></a>
+    </div>
+    {if $wa->shop && $wa->shop->settings('phone')}<div itemprop="telephone"><i class="icon16 phone non-mobile-only"></i> {$wa->shop->settings('phone')}</div>{/if}
+    {if $wa->shop && $wa->shop->settings('email')}<div><a href="mailto:{$wa->shop->settings('email')}"><span itemprop="email"><i class="icon16 email non-mobile-only"></i> {$wa->shop->settings('email')}</span></a></div>{/if}
+    <div class="non-mobile-only">
+        <a title="Powered by Webasyst" href="http{if waRequest::isHttps()}s{/if}://www.webasyst.com/">
+            <img style="border:none;" src="http{if waRequest::isHttps()}s{/if}://www.webasyst.com/wa-content/img/dots/all-dots-default-order.png">
+        </a>
+    </div>
+
+</div>

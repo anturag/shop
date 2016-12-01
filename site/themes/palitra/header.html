@@ -1,0 +1,269 @@
+{if $wa->shop->ABtest(2) == 'A'}
+<!-- новая шапка -->
+<header>
+        <div class="container">
+            <div class="row" itemscope itemtype="http://schema.org/LocalBusiness">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="/img/logo2.png" />
+                        </a>
+                         <span class="dispnone" itemprop="name">Интернет-магазин «Антураж»</span>
+                                <div class="dispnone" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">2-я Красноармейская, 11</span>
+    <span itemprop="postalCode"> 190005</span>
+    <span itemprop="addressLocality">Санкт-Петербург</span>,</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 visible-md visible-lg">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-7">
+                            <div class="block1">
+                                <div class="separator">
+                                    <img src="/img/separator.png" />
+                                </div>
+                                <div class="title">
+                                    Бесплатный звонок по Росии
+                                </div>
+                                <div class="phone" itemprop="telephone">
+                                    8-800-<span class="small-text">700-73-80</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-5">
+                            <div class="block1">
+                                <div class="separator">
+                                    <img src="/img/separator.png" />
+                                </div>
+                                <div class="title">
+                                   <time itemprop="openingHours" datetime="Mo-Fr 10:00−22:00"> Пн-Пт:с 10.00-22.00 </time>
+                                </div>
+                                <div class="phone1">
+                                    8-812-641-03-77
+                                </div>
+                                <div class="phone1">
+                                    8-495-789-83-15
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="block2">
+                            <form class="search_form" method="get" action="{$wa->getUrl('shop/frontend/search')}">
+                                <input type="text"  name="query"  {if !empty($query)}value="{$query}"{/if} id="search" class="" placeholder="Поиск" />
+                                <button class="search-button">Найти</button>
+                            </form>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 hidden-xs">
+                    <div class="block3">
+                       <!-- <div class="town-selector">
+                            <div class="text hidden-md">Ваш город:</div>
+                            <select>
+                                <option>Москва</option>
+                                <option selected>Санкт-Петербург</option>
+                            </select>
+                        </div>-->
+                        {if $wa->shop}
+                        {$cart_total = $wa->shop->cart->total()}
+                        <div class="basket cart_block {if !$cart_total} empty{/if}" id="cart">
+                            <div class="bag">
+                                <a href="/cart/" style="display: block;height: 100%;"><img src="/img/bag.png" /></a>
+                            </div>
+                            <div class="info">
+                            
+                                <div class="title">
+                                    <a href="/cart/">В корзине:  </a><a href="{$wa->getUrl('shop/frontend/cart')}" ><span class="count cart-count">{$wa->shop->cart->count()}</span> [`pcs`]</a>
+                                </div>
+                                <div class="title">
+                                    <a href="/cart/">на суммму: <span class="cost cart-total">{wa_currency_html($cart_total, $wa->shop->currency())}</span></a>
+                                </div>
+                              
+                            </div>
+                        </div>
+                        {/if}
+                         <div class="login">
+                            <p>{if $wa->user()->isAuth()}
+                                {if $wa->shop}
+                                <a href="{$wa->getUrl('shop/frontend/my')}">[s`My account`]</a> /
+                                {else}
+                                <strong>{$wa->user('name')}</strong> /
+                                {/if}
+                                <a href="?logout">[s`Log out`]</a>
+                                {else}
+                                <a href="{$wa->loginUrl()}">[s`Log in`]</a> /
+                                <a href="{$wa->signupUrl()}">[s`Sign up`]</a>
+                                {/if}
+                            </p>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid container-navbar">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-div" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-navbar-collapse-div">
+                               
+                               
+                                 <!-- main website navigation sections -->
+                            {$nav_apps = array()}
+            
+                            {foreach $wa->apps() as $a}
+                                {if $a.name}
+                                    {$nav_apps[$a.url] = $a.name}
+                                {/if}
+                            {/foreach}
+            
+                            <!-- pages -->
+                            {$main_nav_pages = array()}
+                            {if $theme_settings.pages_app == 'site' && $wa->site}
+                                {$main_nav_pages = $wa->site->pages()}
+                            {else if $wa->shop}
+                                {$main_nav_pages = $wa->shop->pages()}
+                            {/if}
+            
+                            {include file="main-nav.html" inline}
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+{else}    
+<!-- старая шапка -->
+<header>
+        <div class="header_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-10">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                <span class="sr-only">МЕНЮ</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <nav id="navbar-collapse" class="collapse navbar-collapse" role="navigation">
+                            
+                            <!-- main website navigation sections -->
+                            {$nav_apps = array()}
+            
+                            {foreach $wa->apps() as $a}
+                                {if $a.name}
+                                    {$nav_apps[$a.url] = $a.name}
+                                {/if}
+                            {/foreach}
+            
+                            <!-- pages -->
+                            {$main_nav_pages = array()}
+                            {if $theme_settings.pages_app == 'site' && $wa->site}
+                                {$main_nav_pages = $wa->site->pages()}
+                            {else if $wa->shop}
+                                {$main_nav_pages = $wa->shop->pages()}
+                            {/if}
+            
+                            {include file="main-nav.html" inline}
+                        </nav>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                    <!-- auth & sign up links -->
+                        <div class="login">
+                            <p>{if $wa->user()->isAuth()}
+                                {if $wa->shop}
+                                <a href="{$wa->getUrl('shop/frontend/my')}">[s`My account`]</a> /
+                                {else}
+                                <strong>{$wa->user('name')}</strong> /
+                                {/if}
+                                <a href="?logout">[s`Log out`]</a>
+                                {else}
+                                <a href="{$wa->loginUrl()}">[s`Log in`]</a> /
+                                <a href="{$wa->signupUrl()}">[s`Sign up`]</a>
+                                {/if}
+                            </p>
+                        </div>                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header">
+            <div class="container" itemscope itemtype="http://schema.org/LocalBusiness"> 
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/template/img/logo.png" itemprop="logo" alt=""  />
+                                <span class="dispnone" itemprop="name">Интернет-магазин «Антураж»</span>
+                                <div class="dispnone" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+    <span itemprop="streetAddress">2-я Красноармейская, 11</span>
+    <span itemprop="postalCode"> 190005</span>
+    <span itemprop="addressLocality">Санкт-Петербург</span>,
+  </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-9">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="big_phone wave" >
+                                    <p>Бесплатный звонок по России<br>
+                                      <b itemprop="telephone">  <span class="big">8-800</span><span class="small">-700-73-80</span></b></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="work_time wave">
+                                    <p> <time itemprop="openingHours" datetime="Mo-Fr 10:00−22:00"> Пн-Пт: 10:00 - 22:00 </time>
+                                        <span>8-812-641-03-77</span>
+                                        <span>8-495-789-83-15</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                                       <!-- <div class="geoposition"> 
+                                          {if $wa_app == 'shop'}{shopGeoipPlugin::display()}{/if}
+                                        </div> -->
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+
+                                    <!-- cart (app dependent) -->
+                                        {if $wa->shop}
+                                        {$cart_total = $wa->shop->cart->total()}
+                                        <div id="cart" class="cart_block {if !$cart_total} empty{/if}">
+                                            <p>В корзине <a href="{$wa->getUrl('shop/frontend/cart')}" onClick="yaCounter12600820.reachGoal('IN_CART'); return true;"><span class="cart-count">{$wa->shop->cart->count()}</span> [`pcs`]</a> <br /> на сумму <span><strong class="cart-total">{wa_currency_html($cart_total, $wa->shop->currency())}</strong></span></p>
+                                        </div>
+                                        {/if}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                            
+                                        <!-- search -->
+<form class="search_form" method="get" action="{$wa->getUrl('shop/frontend/search')}">
+<input style="width: 100%;" type="text" name="query" {if !empty($query)}value="{$query}"{/if} id="search" placeholder="[s`Find products`]"><button type="submit"></button>
+            </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    {/if}

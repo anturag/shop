@@ -1,0 +1,196 @@
+{$list_type = 'thumbs'}
+{if waRequest::cookie('view_select') == 'table'}{$list_type = 'table'}{/if}
+{if isset($category)}{$_cid = $category.id}{else}{$_cid = null}{/if}
+<div class="row">
+    <div class="topBar-catalog clearfix">
+        <div class="col-md-3">
+            <div class="catalog">
+            
+            {if empty($theme_settings.horizontal_categories_menu) && $wa->shop && $wa->shop->categories()}
+            
+                    <div class="navbar-header">
+                        <div class="h2">Каталог</div>
+                        <button type="button" class="hamburger">
+                            <span class="sr-only">МЕНЮ</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+    
+            {/if}
+            </div>
+        </div>
+        <!-- category tree -->
+        <nav id="navbar-catalog" class="catalog-menu hide">
+        {if isset($category)}{$cid = $category.id}{else}{$cid = null}{/if}
+            <ul>
+            {foreach $wa->shop->categories(0,7,true) as $c}
+                <li {if $_cid == $c.id} class="selected"{/if}>
+                    <a href="{$c.url}">
+                        
+                        <span class="wide">{$c.name}</span>
+                    </a>
+            {if $c.childs}
+            {if count($c.childs) > 10 && $theme_settings.page_nav_mode != 'accordion'}{$_class = 'condensed'}{else}{$_class = ''}{/if}
+                        {if $theme_settings.page_nav_mode == 'accordion'}
+                        <div class="hover_side_menu">
+                        {if $_cid == $c.id} {$_class="`$_class` selected"}{/if}
+                            {wa_print_tree tree=$c.childs selected=$cid unfolded=true class="`$_class`" collapsible_class='collapsible'
+                                elem='<a href=":url">:name</a>'}
+                                </div>
+                        {else}
+                        {if $_cid == $c.id} {$_class="`$_class` selected"}{/if}
+                            {wa_print_tree tree=$c.childs selected=$cid unfolded=true class="hover_side_menu `$_class`" collapsible_class='collapsible'
+                                elem='<a href=":url">:name</a>'}
+                        {/if}
+                    {/if}
+                </li>
+            {/foreach}
+    
+            {if !empty($frontend_nav)}
+                {$_hook_frontend_sidebar_section = false}
+                <!-- plugin hook: 'frontend_nav' -->
+                {* @event frontend_nav.%plugin_id% *}
+                {foreach $frontend_nav as $plugin => $output}
+                    {if !empty($output)}
+                        {$_hook_frontend_sidebar_section = true}
+                    {/if}
+                {/foreach}
+                {if $_hook_frontend_sidebar_section}
+    
+                    <!-- 'frontend_nav' plugins -->
+                    {foreach $frontend_nav as $_key => $_}
+                        <li class="collapsible">
+    
+                                    <a href="#" onClick="return false">
+    
+                                        <span class="wide">{if substr($_key, -7) == '-plugin'}{$wa->pluginName(substr($_key, 0, -7))}{else}[`More`]{/if}</span>
+                                    </a>
+    
+                            {$_}
+    
+                        </li>
+                    {/foreach}
+    
+                {/if}
+            {/if}
+            </ul>
+        </nav>
+        <div class="col-md-9">
+            <div class="topBar-desc clearfix">
+<!-- navigation breadcrumbs -->
+{if isset($breadcrumbs)}
+<div class="breadcrumbs">
+<a href="{$wa_app_url}">{$wa->shop->settings('name')}</a>
+{if $breadcrumbs}
+{foreach $breadcrumbs as $breadcrumb}
+» <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a>
+{/foreach}
+{else} » {/if}
+</div>
+{/if}
+                <div class="view-select">
+                    <span>[`View:`]</span>
+                    <i class="icon24 thumbs{if $list_type == 'thumbs'} selected{/if}"></i>
+                    <i class="icon24 table{if $list_type == 'table'} selected{/if}"></i>
+                </div>
+                {if !($category.subcategories || !empty($filters))}
+                <div class="wave_bg"></div>
+                {/if}
+            </div>
+                
+        </div>
+    </div>
+</div>
+
+
+<div style="display: none;">
+    {if $category.parent_id == 687 && $category.id == 748 || $category.id == 746 || $category.id == 744 || $category.id == 747}
+        <!--hspan-->{$category.name|escape}<!--/hspan-->
+    {/if}
+    <!--hone-->{$category.name|escape}<!--/hone-->
+</div>
+
+<!-- plugin hook: 'frontend_category' -->
+{* @event frontend_category.%plugin_id% *}
+{foreach $frontend_category as $_}{$_}{/foreach}
+{if $category.subcategories || !empty($filters)}
+<div class="row sub-cat_filters clearfix">
+    <!-- subcategories -->
+    {if $category.subcategories}
+    <div class="{if !empty($filters)}col-md-3{else}col-md-9{/if}">
+        <span class="category-name">
+            {$category.name|escape}
+        </span>
+        <ul class="sub-categories">
+            {foreach $category.subcategories as $sc}
+            <li><a href="{$sc.url}">{$sc.name|escape}</a>{if $sc.count}{if empty($theme_settings.hide_categories_count)} <span>({$sc.count})</span>{/if}</li>{/if}
+            {/foreach}
+        </ul>
+    </div>
+    {/if}
+    
+    <!-- filtering by product features -->
+    
+    {if !empty($filters)}
+    <div class="{if $category.subcategories}col-md-9"{else} col-md-12" style="margin-top: 20px;"{/if}>
+        <div>
+            {include file="`$wa_active_theme_path`/filters.html" inline}
+        </div>
+    </div>
+    {/if}
+    <div class="wave_bg"></div>
+</div>
+{/if}
+<div class="row">
+    <div class="col-md-12">
+        <div id="product-list" class="products-wrap clearfix">
+        {if !$products}
+            {if !empty($filters)}
+                [`No products were found.`]
+            {else}
+                [`This category does not contain any products.`]
+            {/if}
+        {else}
+        
+            {include file="list-$list_type.html" sorting=!empty($category.params.enable_sorting)}
+        
+        {/if}
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+<h1 class="category-name">
+    {$category.name|escape}
+</h1>
+<!-- description -->
+<!-- seoshieldstart-->
+
+
+{if $category.description}
+    <p>{$category.description}</p>
+{/if}
+<!-- seoshieldend-->
+</div>
+
+{include file="recent_products.html" inline}
+<script>
+    $('.hamburger').click(function(){
+        if($('#navbar-catalog').hasClass('show')){
+            $('#navbar-catalog').removeClass('show');
+            $('#navbar-catalog').addClass('hide');
+        }else{
+            $('#navbar-catalog').removeClass('hide');
+            $('#navbar-catalog').addClass('show');
+        }
+    })
+</script>
+<script>
+$(function () {
+    if (typeof(Storage) !== 'undefined') {
+        var breadcrumbs = $('.breadcrumbs').length ? $('.breadcrumbs').html() : '';
+        localStorage.setItem('breadcrumbs', breadcrumbs + ' <a href="{$wa->shop->categoryUrl($category)}">{$category.name|escape}</a> <span class="rarr">&rarr;</span>');
+    }
+});
+</script>

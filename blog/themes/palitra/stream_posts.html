@@ -1,0 +1,72 @@
+{* post list: default view mode *}
+
+{foreach $posts as $post}
+    <div class="post" id="post-{$post.id}" {if $wa->param('blog_url')}itemprop="blogPosts" {/if}itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="post-header clearfix">
+        <div class="title">
+            <a href="{$post.link}" itemprop="url">{$post.title}</a>
+
+            {* @event prepare_posts_frontend.%plugin_id%.post_title *}
+            {if !empty($post.plugins.post_title)}
+                {foreach $post.plugins.post_title as $plugin => $output}{$output}{/foreach}
+            {/if}
+
+        </div>
+        <span class="hint date">{$post.datetime|wa_datetime:"humandate"}</span>
+    </div>
+        <div class="credentials clearfix">
+
+            {if $show_comments && $post.comments_allowed}
+                <span class="post-comments">
+                    <a href="{$post.link}#comments">
+                        Комментариев: {$post.comment_count}
+                    </a>
+                </span>
+
+            {/if}
+
+        </div>
+
+        {* @event prepare_posts_frontend.%plugin_id%.before *}
+        {if !empty($post.plugins.before)}
+            <div class="text_before">
+                {foreach $post.plugins.before as $plugin => $output}{$output}{/foreach}
+            </div>
+        {/if}
+
+        <div class="text clearfix">
+            {$post.text}
+        </div>
+        <a href="{$post.link}" class="post-more">подробнее</a>
+        {* attached album photo thumbs *}
+        {if $post.album_id && $post.album.id && $post.album.photos}
+            {$photos_loaded = 1} {* required for proper photo thumbs retinification *}
+            <div class="photo-album-attachment">
+                <ul class="thumbs">
+                    {foreach $post.album.photos as $p}
+                        <li><a href="{$post.link}#photo{$p.id}"><img src="{$p.thumb_crop.url}" class="retinify" width="96" height="96" alt="{$p.name|escape}"></a></li>
+                    {/foreach}
+                </ul>
+            </div>
+        {/if}
+
+        {* @event prepare_posts_frontend.%plugin_id%.after *}
+        {if !empty($post.plugins.after)}
+            <div class="text_after">
+                {foreach $post.plugins.after as $plugin => $output}{$output}{/foreach}
+            </div>
+        {/if}
+
+    </div>
+{foreachelse}
+    {if $page lt 2}
+        {_w('%d post','%d posts',0)}
+    {/if}
+{/foreach}
+
+{if !empty($photos_loaded) && blogPhotosBridge::is2xEnabled()}
+    <script src="{$wa_static_url}wa-content/js/jquery-plugins/jquery.retina.min.js"></script>
+    <script>$(function() { "use strict";
+        $.Retina && $('img.retinify').retina();
+    });</script>
+{/if}

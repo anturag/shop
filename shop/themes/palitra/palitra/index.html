@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    
+    <title>{$wa->title()|escape}</title>
+    
+    {if !empty($canonical)}<link rel="canonical" href="{$canonical}"/>{/if}
+    
+    {if $wa->blog}
+    <!-- rss -->
+        {$rss = $wa->blog->rssUrl()}
+            {if $rss}<link rel="alternate" type="application/rss+xml" title="[s`RSS`] &mdash; {$wa->accountName()}" href="{$rss}" />{/if}
+    {/if}
+
+    <meta name="description" content="{$wa->meta('description')|escape}">
+    <meta name="keywords" content="{$wa->meta('keywords')|escape}" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300,300italic&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
+    <link href="{$wa_theme_url}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{$wa_theme_url}js/owl/owl.carousel.css" rel="stylesheet">
+    <link href="{$wa_theme_url}css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    
+    <script   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script src="{$wa_theme_url}theme.js"></script>
+    <!-- Яндекс.советник отключаем-->  
+    <script src="https://cdn.jsdelivr.net/stopsovetnik/latest/ss.min.js" async></script>
+    <!-- Яндекс.советник отключаем--> 
+  
+<script src="/wa-apps/shop/plugins/geoip/js/geoip.js"></script>
+<script type="text/javascript" src="http://static.antu.ru/wa-apps/shop/js/lazy.load.js?v=6.3.0.1459171658"> </script>
+
+{$wa->js()} {* links active plugins JS *}
+
+{include file="`$wa_active_theme_path`/head.html" inline}
+
+{$wa->headJs()} {* links Google Analytics tracking code and current app's custom JS *}
+</head>
+
+<!-- custom theme styling -->
+{$class = ''}
+{if empty($theme_settings.hide_sidebar)}{$class = 'with-sidebar'}{/if}
+{if !empty($theme_settings.color_scheme)}
+    {$class = trim("$class color-"|cat:$theme_settings.color_scheme)}
+{/if}
+
+<body id="{$wa_app}" class="{$class}"{if !empty($theme_settings.copy_protect)} oncontextmenu="return false;"{/if}>
+    <header>
+        <div class="header_top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-10">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                <span class="sr-only">МЕНЮ</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <nav id="navbar-collapse" class="collapse navbar-collapse" role="navigation">
+                            
+                            <!-- main website navigation sections -->
+                            {$nav_apps = array()}
+            
+                            {foreach $wa->apps() as $a}
+                                {if $a.name}
+                                    {$nav_apps[$a.url] = $a.name}
+                                {/if}
+                            {/foreach}
+            
+                            <!-- pages -->
+                            {$main_nav_pages = array()}
+                            {if $theme_settings.pages_app == 'site' && $wa->site}
+                                {$main_nav_pages = $wa->site->pages()}
+                            {else if $wa->shop}
+                                {$main_nav_pages = $wa->shop->pages()}
+                            {/if}
+            
+                            {include file="main-nav.html" inline}
+                        </nav>
+                    </div>
+                    <div class="col-xs-12 col-md-2">
+                    <!-- auth & sign up links -->
+                        <div class="login">
+                            <p>{if $wa->user()->isAuth()}
+                                {if $wa->shop}
+                                <a href="{$wa->getUrl('shop/frontend/my')}">[s`My account`]</a> /
+                                {else}
+                                <strong>{$wa->user('name')}</strong> /
+                                {/if}
+                                <a href="?logout">[s`Log out`]</a>
+                                {else}
+                                <a href="{$wa->loginUrl()}">[s`Log in`]</a> /
+                                <a href="{$wa->signupUrl()}">[s`Sign up`]</a>
+                                {/if}
+                            </p>
+                        </div>                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="/template/img/logo.png" alt="" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-9">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="big_phone wave">
+                                    <p>Бесплатный звонок по России<br>
+                                        <span class="big">8-800</span><span class="small">-700-73-80</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-4">
+                                <div class="work_time wave">
+                                    <p>Пн-Пт: 10:00 - 19:00
+                                        <span>8-812-641-03-77</span>
+                                        <span>8-495-789-83-15</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-4">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                                        <div class="geoposition"> 
+                                          {if $wa_app == 'shop'}{shopGeoipPlugin::display()}{/if}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+
+                                    <!-- cart (app dependent) -->
+                                        {if $wa->shop}
+                                        {$cart_total = $wa->shop->cart->total()}
+                                        <div id="cart" class="cart_block {if !$cart_total} empty{/if}">
+                                            <p>В корзине <a href="{$wa->getUrl('shop/frontend/cart')}" onClick="yaCounter12600820.reachGoal('IN_CART'); return true;"><span class="cart-count">{$wa->shop->cart->count()}</span> [`pcs`]</a> <br /> на сумму <span><strong class="cart-total">{wa_currency_html($cart_total, $wa->shop->currency())}</strong></span></p>
+                                        </div>
+                                        {/if}
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                            
+                                        <!-- search -->
+<form class="search_form" method="get" action="{$wa->getUrl('shop/frontend/search')}">
+<input style="width: 100%;" type="text" name="query" {if !empty($query)}value="{$query}"{/if} id="search" placeholder="[s`Find products`]"><button type="submit"></button>
+            </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main id="page">
+    
+            {include file="`$wa_active_theme_path`/content.html" inline}
+        
+        <div class="page-buffer"></div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-9">
+                            <ul class="f_cat_menu">
+                                <li>
+                                    <a href="/geli_laki/">Гель-лаки</a>
+                                </li>
+                                <li>
+                                    <a href="/geli_laki/gel_kraski_uno_/">Гель-лаки UNO</a>
+                                </li>
+                                <li>
+                                    <a href="/geli_laki/stoykiy_lak_s_effektom_gelya_nina_ultra_pro_/">Стойкий лак Nina Ultra Pro</a>
+                                </li>
+                                <li>
+                                    <a href="/parafinoterapiya/">Парафинотерапия</a>
+                                </li>
+                                <li>
+                                    <a href="/pilki_dlya_nogtey/">Пилки для ногтей</a>
+                                </li>
+                                <li>
+                                    <a href="/aksessuary_dlya_volos/">Расчески Tange Teezer</a>
+                                </li>
+                                <li>
+                                    <a href="/uhod_za_volosami/">Уход за волосами</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-md-3">
+                            <ul class="f_menu">
+                                <li><a href="/site/dostavka/">Доставка</a></li>
+                                <li><a href="/site/kak-kupit/">Как купить</a></li>
+                                <li><a href="/site/instruktsii/">Условия</a></li>
+                                <li><a href="/site/kak-kupit/vozvrat/">Гарантия</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="f_contacts wave">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-5">
+                                <div class="f_phone">
+                                    <p>8-800-700-73-80</p>
+                                    <p>8-812-641-03-77</p>
+                                    <p>8-495-789-83-15</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-7">
+                                <div class="f_soc">
+                                    <a target="_blank" class="fb" href="#"><i class="fa fa-facebook"></i></a>
+                                    <a target="_blank" class="vk" href="http://vk.com/anturu"><i class="fa fa-vk"></i></a>
+                                    <a target="_blank" class="yt" href="https://www.youtube.com/channel/UChKm5v8hCaeDH5qAY0yGe2A"><i class="fa fa-youtube"></i></a>
+                                    <a target="_blank" class="in" href="https://www.instagram.com/nailsrussia/"><i class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-xs hidden-sm col-md-2">
+                    <a href="/" id="f_logo"></a>
+                </div>
+            </div>
+        </div>
+        </div>
+          
+    </footer>
+    
+    <script src="{$wa_theme_url}js/bootstrap.min.js"></script>
+    <script src="{$wa_theme_url}js/owl/owl.carousel.js"></script>
+    <script src="{$wa_theme_url}js/owl/sly.min.js"></script>
+    <script src="{$wa_theme_url}js/main.js"></script>
+    <script>
+        
+    </script>
+</body>
+
+</html>

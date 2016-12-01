@@ -1,0 +1,33 @@
+<!-- apps and pages -->
+<ul class="apps menu-h">
+    {strip}
+
+    {$_count = 0}
+
+    {foreach $wa->apps() as $a}
+        {if $a.name}
+            <li{if $a.url==$wa_app_url} class="selected"{/if} style="border-color:{$app_colors.$_count};"><a href="{$a.url}">{$a.name}</a></li>
+            {$_count = $_count + 1}
+            {if $_count > count($app_colors) - 1}{$_count = 0}{/if}
+        {/if}
+    {/foreach}
+
+    <!-- pages -->
+    {if $main_nav_pages}
+        {if isset($page.id)}{$_pid = $page.id}{else}{$_pid = null}{/if}
+        {foreach $main_nav_pages as $p}
+            {if empty($nav_apps[$p.url])}
+                <li{if $p.id == $_pid} class="selected"{/if} style="border-color:{$app_colors.$_count};">
+                    <a href="{$p.url}">{$p.name}</a>
+                    {*if !empty($p.childs)}
+                        {wa_print_tree tree=$p.childs unfolded=true class="menu-v dhtml" elem='<a href=":url">:name</a>'}
+                    {/if*}
+                </li>
+                {$_count = $_count + 1}
+                {if $_count > count($app_colors) - 1}{$_count = 0}{/if}
+            {/if}
+        {/foreach}
+    {/if}
+
+    {/strip}
+</ul>

@@ -1,0 +1,26 @@
+<div class="row">
+
+    {$left = ''}
+    {if empty($theme_settings.hide_sidebar)}
+        {include file="sidebar.html"}
+        {$left = ' left'}
+    {/if}
+
+    <div class="col-xs-12 col-md-9 md{$left}">
+    
+        {if $wa->currentUrl() == $wa_app_url && !empty($error_code) && $error_code == 404}
+    
+            <div class="main_text">
+                <h1>[`Welcome to your new site!`]</h1>
+                <p>{sprintf('[`Start by creating a page in your <a href="%s">site backend</a>.`]', $wa_backend_url|cat:'site/#/pages/')}</p>
+            </div>
+    
+        {else}
+    
+            {$content}
+    
+        {/if}
+    
+    </div>
+</div>
+

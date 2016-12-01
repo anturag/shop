@@ -1,0 +1,31 @@
+<!-- shop app css -->
+<!--<link href="{$wa_active_theme_url}shop.css?v{$wa_theme_version}" rel="stylesheet" type="text/css">-->
+<link href="{$wa_active_theme_url}jquery.bxslider.css?v{$wa_theme_version}" rel="stylesheet" />
+
+<!-- js -->
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-wa/wa.core.js?v={$wa->version()}"></script>
+<script type="text/javascript" src="{$wa_active_theme_url}lazyloading.js?v{$wa_theme_version}"></script>
+<script src="{$wa_active_theme_url}jquery.bxslider.min.js?v{$wa_theme_version}"></script>
+<script type="text/javascript" src="{$wa_app_static_url}js/lazy.load.js?v={$wa->version()}"></script>
+<!-- <script type="text/javascript" src="{$wa_active_theme_url}shop.js?v{$wa_theme_version}"></script> -->
+
+<!-- Файл, що видаляє зайвий "?" при видаленні фільтрів з урла -->
+    <script type="text/javascript" src="{$wa_active_theme_url}work_shop.js"></script>
+<!--/end-->
+
+{if !empty($nofollow)}
+    <!-- "nofollow" for pages not to be indexed, e.g. customer account -->
+    <meta name="robots" content="noindex,nofollow" />
+{/if}
+
+<!-- plugin hook: 'frontend_head' -->
+{* @event frontend_head.%plugin_id% *}
+{foreach $frontend_head as $_}{$_}{/foreach}
+{literal}
+<!-- Put this script tag to the <head> of your page -->
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+
+<script type="text/javascript">
+  VK.init({apiId: 4928275, onlyWidgets: true});
+</script>
+{/literal}

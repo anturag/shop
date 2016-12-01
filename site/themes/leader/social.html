@@ -1,0 +1,18 @@
+<ul>
+    {if $theme_settings.facebook_url}<li><a href="{$theme_settings.facebook_url}" target="_blank" title=""><i class="soc-fb"></i></a></li><!--facebook-->{/if}
+    {if $theme_settings.twitter_url}<li><a href="{$theme_settings.twitter_url}" target="_blank" title=""><i class="soc-tw"></i></a></li><!--twitter-->{/if}
+    {if $theme_settings.vk_url}<li><a href="{$theme_settings.vk_url}" target="_blank" title=""><i class="soc-vk"></i></a></li><!--vkontakte-->{/if}
+    {if $theme_settings.ok_url}<li><a href="{$theme_settings.ok_url}" target="_blank" title=""><i class="soc-ok"></i></a></li><!--ok-->{/if}
+    {if $theme_settings.instagram_url}<li><a href="{$theme_settings.instagram_url}" target="_blank" title=""><i class="soc-ig"></i></a></li><!--instagram-->{/if}
+    {if $theme_settings.gp_url}<li><a href="{$theme_settings.gp_url}" target="_blank" title=""><i class="soc-go"></i></a></li><!--google+-->{/if}
+    {if $theme_settings.lj_url}<li><a href="{$theme_settings.lj_url}" target="_blank" title=""><i class="soc-lj"></i></a></li><!--livejornal-->{/if}
+    {if $theme_settings.mm_url}<li><a href="{$theme_settings.mm_url}" target="_blank" title=""><i class="soc-mm"></i></a></li><!--MM-->{/if}
+    {if $theme_settings.vd_url}<li><a href="{$theme_settings.vd_url}" target="_blank" title=""><i class="soc-vd"></i></a></li><!--VD-->{/if}
+    {if $theme_settings.pinterest_url}<li><a href="{$theme_settings.pinterest_url}" target="_blank" title=""><i class="soc-pl"></i></a></li><!--pinterest-->{/if}
+    {if $theme_settings.tumblr_url}<li><a href="{$theme_settings.tumblr_url}" target="_blank" title=""><i class="soc-tumblr"></i></a></li><!--tumblr-->{/if}
+    {if $theme_settings.youtube_url}<li><a href="{$theme_settings.youtube_url}" target="_blank" title=""><i class="soc-yt"></i></a></li><!--youtube-->{/if}
+
+    {if $wa->blog}{$rss = $wa->blog->rssUrl()}{if $rss}
+    <li><a href="{$rss}" target="_blank" title="RSS"><i class="soc-rss"></i></a></li><!--rss-->
+    {/if}{/if}
+</ul>

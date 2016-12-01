@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE theme PUBLIC "wa-app-theme" "http://www.webasyst.com/wa-content/xml/wa-app-theme.dtd">
+<theme id="palitra" system="0" vendor="85050" author="palitra" app="shop" parent_theme_id="site:palitra" version="2.2.1" edition="51">
+  <name locale="en_US">palitra</name>
+  <name locale="ru_RU">palitra</name>
+  <description locale="en_US">Universal adaptive design theme family.</description>
+  <description locale="ru_RU">Семейство адаптивных тем дизайна.</description>
+  <files>
+    <file path="index.html" custom="0" parent="1"/>
+    <file path="core.css" custom="0" parent="1"/>
+    <file path="banners-slider.html" custom="0" modified="1">
+      <description locale="en_US">Display banners on the main store page</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="cart.html" custom="0" modified="1">
+      <description locale="en_US">Shopping cart page</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="cart.js" custom="0" modified="1">
+      <description locale="en_US">Cart JS</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="category.html" custom="0" modified="1">
+      <description locale="en_US">Wrapper for a category page</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="checkout.confirmation.html" custom="0">
+      <description locale="en_US">Checkout: order confirmation</description>
+      <description locale="ru_RU">Оформление заказа: выбор способа доставки</description>
+    </file>
+    <file path="checkout.contactinfo.html" custom="0" modified="1">
+      <description locale="en_US">Checkout: customer contact information form</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="checkout.error.html" custom="0">
+      <description locale="en_US">Checkout: error page</description>
+      <description locale="ru_RU">Оформление заказа: выбор способа доставки</description>
+    </file>
+    <file path="checkout.html" custom="0" modified="1">
+      <description locale="en_US">Checkout core wrapper</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="checkout.payment.html" custom="0">
+      <description locale="en_US">Checkout: payment option selection</description>
+      <description locale="ru_RU">Оформление заказа: выбор способа доставки</description>
+    </file>
+    <file path="checkout.shipping.html" custom="0">
+      <description locale="en_US">Checkout: shipping option selection</description>
+      <description locale="ru_RU">Оформление заказа: выбор способа доставки</description>
+    </file>
+    <file path="checkout.success.html" custom="0">
+      <description locale="en_US">Checkout: thank you page</description>
+      <description locale="ru_RU">Оформление заказа: выбор способа доставки</description>
+    </file>
+    <file path="compare.html" custom="0">
+      <description locale="en_US">Product comparison</description>
+      <description locale="ru_RU">Сравнение товаров</description>
+    </file>
+    <file path="content.html" custom="0" modified="1">
+      <description locale="en_US">Main storefront layout and navigation</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="error.html" parent="1"/>
+    <file path="filters.html" custom="0" modified="1">
+      <description locale="en_US">Product by-feature filtering</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="footer.html" custom="0" modified="1">
+      <description locale="en_US">App specific footer content</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="forgotpassword.html" parent="1"/>
+    <file path="head.html" custom="0" modified="1">
+      <description locale="en_US"/>
+      <description locale="en_US">Блок &lt;head&gt; приложения Shop-Script</description>
+    </file>
+    <file path="home.html" custom="0" modified="1">
+      <description locale="en_US">Storefront homepage</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="lazyloading.js" custom="0">
+      <description locale="en_US">Lazy loading JS</description>
+      <description locale="ru_RU">Скрипты загрузки контента «на лету»</description>
+    </file>
+    <file path="list-table.html" custom="0" modified="1">
+      <description locale="en_US">Product list table view</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="list-thumbs.html" custom="0" modified="1">
+      <description locale="en_US">Product list thumbnail view</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="list-thumbs-mini.html" custom="0" modified="1">
+      <description locale="en_US">Recommended product list (mini thumbnails)</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="login.html" parent="1"/>
+    <file path="my.affiliate.html" custom="0">
+      <description locale="en_US">Customer account interface: affiliate program</description>
+      <description locale="ru_RU">Личный кабинет покупателя: партнерская программа</description>
+    </file>
+    <file path="my.html" custom="0">
+      <description locale="en_US">Customer account interface layout</description>
+      <description locale="ru_RU">Личный кабинет покупателя</description>
+    </file>
+    <file path="my.order.html" custom="0">
+      <description locale="en_US">Customer account interface: single order information</description>
+      <description locale="ru_RU">Личный кабинет покупателя: информация о заказе</description>
+    </file>
+    <file path="my.orders.html" custom="0">
+      <description locale="en_US">Customer account interface: order list</description>
+      <description locale="ru_RU">Личный кабинет покупателя: список заказов</description>
+    </file>
+    <file path="my.profile.html" parent="1"/>
+    <file path="navigation.html" custom="0" modified="1">
+      <description locale="en_US">Internal storefront navigation</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="page.html" custom="0">
+      <description locale="en_US">Static page content</description>
+      <description locale="ru_RU">Содержимое информационной страницы</description>
+    </file>
+    <file path="product.cart.html" custom="0" modified="1">
+      <description locale="en_US">Product add to cart block</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="product.html" custom="0" modified="1">
+      <description locale="en_US">Dedicated product page</description>
+      <description locale="ru_RU"></description>
+    </file>
+    <file path="product.js" custom="0" modified="1">
+      <description locale="en_US">Product page JS</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="product.page.html" custom="0">
+      <description locale="en_US">Product static subpage content</description>
+      <description locale="ru_RU">Информационная подстраница товара</description>
+    </file>
+    <file path="promo-slider.html" custom="0">
+      <description locale="en_US">Slider for the "promo" and "bestsellers" lists</description>
+      <description locale="ru_RU">Слайдер списков "специальные предложения" и "хиты продаж"</description>
+    </file>
+    <file path="recent_products.html" custom="0" modified="1">
+      <description locale="en_US">"Recent" products list</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="review.html" custom="0">
+      <description locale="en_US">A single product review template</description>
+      <description locale="ru_RU">Шаблон вывода одного отзыва о товаре</description>
+    </file>
+    <file path="reviews.html" custom="0">
+      <description locale="en_US">Product review list</description>
+      <description locale="ru_RU">Список отзывов о товаре</description>
+    </file>
+    <file path="search.html" custom="0">
+      <description locale="en_US">Wrapper for product search (filtering) results, e.g. by name, tag, or manufacturer</description>
+      <description locale="ru_RU">Обертка для страницы поиска (фильтрации) товаров, например, по тегу, ключевому слову или производителю</description>
+    </file>
+    <file path="shop.css" custom="0" modified="1">
+      <description locale="en_US">Core storefront CSS</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="shop.js" custom="0">
+      <description locale="en_US">CUSTOM theme JS</description>
+      <description locale="ru_RU">Скрипты темы CUSTOM</description>
+    </file>
+    <file path="sidebar_app.html" custom="0" modified="1">
+      <description locale="en_US">Pages menu in sidebar</description>
+      <description locale="ru_RU"/>
+    </file>
+    <file path="signup.html" parent="1"/>
+    <file path="sale_block.html" custom="1" modified="1">
+      <description locale="ru_RU">Блоки акций на главной</description>
+    </file>
+    <file path="sly-carousel.html" custom="1" modified="1">
+      <description locale="ru_RU"/>
+    </file>
+    <file path="sly2.html" custom="1" modified="1">
+      <description locale="ru_RU"/>
+    </file>
+    <file path="sly3.html" custom="1" modified="1">
+      <description locale="ru_RU"/>
+    </file>
+    <file path="sidebar.html" custom="1" modified="1">
+      <description locale="ru_RU"/>
+    </file>
+  </files>
+  <about locale="en_US">
+&lt;p&gt;&lt;b&gt;Leader&lt;/b&gt; is a universal adaptive design theme family for Webasyst apps. The parent theme of the family, which includes the basic set of CSS rules and the common layout template index.html, is the Leader theme for the Site application. All Leader design themes used in other applications link common CSS and index.html layout file from the main theme.&lt;/p&gt;
+&lt;p&gt;The Leader theme was designed to deliver comfortable shopping experience by focusing customer's attention on products rather than design elements.&lt;/p&gt;
+&lt;p&gt;Leader design themes automatically link CSS depending on a visitor's device. Supported devices and platforms: iOS or Android based mobile devices, tablet computers such as iPad, common desktop computers and laptops.&lt;/p&gt;
+</about>
+  <about locale="ru_RU">
+&lt;p&gt;&lt;b&gt;Лидер&lt;/b&gt; — это универсальное семейство адаптивных тем дизайна для приложений фреймворка. Родительской темой семейства, включающей в себя базовый набор CSS-стилей и общий макет дизайна index.html, является тема Лидер для приложения «Сайт». Все темы дизайна Лидер для других приложений используют базовый CSS и index.html из родительской темы.&lt;/p&gt;
+&lt;p&gt;Основное назначение темы Лайт &amp;mdash; обеспечить покупателям магазина комфортный выбор товара, фокусируя внимание посетителя исключительно на покупке, а не на элементах дизайна.&lt;/p&gt;
+&lt;p&gt;
+Темы
+&lt;p&gt;Темы дизайна семейства Лидер оптимизированы для всех современных браузеров, планшетных компьютеров и мобильных устройств на основе iOS и Android. CSS-стили подключаются в зависимости от разрешения и типа устройства, которым пользуется посетитель сайта.&lt;/p&gt;
+</about>
+  <thumbs>
+    <thumb>48x48</thumb>
+    <thumb>96x96</thumb>
+    <thumb>200</thumb>
+    <thumb>750</thumb>
+    <thumb>970</thumb>
+  </thumbs>
+</theme>

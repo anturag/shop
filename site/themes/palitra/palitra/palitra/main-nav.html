@@ -1,0 +1,33 @@
+<!-- apps and pages -->
+<ul>
+    {strip}
+
+    {$_pgs = array()}
+    {$_is_page = false}
+    {if $main_nav_pages}
+        {if isset($page.id)}{$_pid = $page.id}{else}{$_pid = null}{/if}
+        {foreach $main_nav_pages as $_p}
+            {if empty($nav_apps[$_p.url])}
+                {$_pgs[] = $_p}
+                {if $_p.id == $_pid}{$_is_page = true}{/if}
+            {/if}
+        {/foreach}
+    {/if}
+
+    <!-- apps -->
+    {foreach $nav_apps as $_url => $_name}
+        <li{if $_url == $wa_app_url && !$_is_page} class="selected"{/if}><a href="{$_url}">{$_name}</a></li>
+    {/foreach}
+
+    <!-- pages -->
+    {foreach $_pgs as $_p}
+        <li{if $_p.id == $_pid} class="selected"{/if}>
+            <a href="{$_p.url}">{$_p.name}</a>
+            {*if !empty($_p.childs)}
+                {wa_print_tree tree=$_p.childs unfolded=true class="menu-v dhtml" elem='<a href=":url">:name</a>'}
+            {/if*}
+        </li>
+    {/foreach}
+
+    {/strip}
+</ul>

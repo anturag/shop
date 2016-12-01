@@ -1,0 +1,127 @@
+<!-- get products from predefined product lists 'promo' and 'bestsellers' -->
+{$promo = $wa->shop->productSet('promo')}
+{$bestsellers = $wa->shop->productSet('bestsellers')}
+
+
+
+<!-- banners -->
+{if $wa->photos}
+{include file="`$wa_active_theme_path`/banners-slider.html"}
+{/if}
+<!-- eof banners -->
+
+<!-- top products -->
+<!-- 'promo' product list -->
+{if $promo}
+
+    <span class="title promo">
+        {sprintf('[`Special offers for %s`]', $smarty.now|wa_datetime:"humandate")}
+    </span>
+
+    {if !empty($theme_settings.promo_block_type) && $theme_settings.promo_block_type == 'slider'}
+
+    {include file="promo-slider.html" products=$promo}
+
+    {else}
+
+    <div class="promo special-offers">
+        {include file="list-thumbs.html" products=$promo}
+    </div>
+
+    {/if}
+
+{else}
+
+    <p class="hint align-center">
+        {sprintf('[`Product set with the ID <strong>%s</strong> either does not exist or does not contain any product. Add some products into a product set with the specified ID to make these products featured here.`]','promo')}
+    </p>
+
+{/if}
+
+<!-- plugin hook: 'frontend_homepage' -->
+{* @event frontend_homepage.%plugin_id% *}
+{foreach $frontend_homepage as $_}{$_}{/foreach}
+
+<div class="clear-both"></div>
+
+<!-- … suggested place for greeting text here … -->
+{if $wa->shop->ABtest(1) == 'A'}
+
+
+
+
+<!-- 'bestsellers' product list -->
+{if $bestsellers}
+
+    <span class="title hit">[`Bestsellers`]</span>
+
+    {if !empty($theme_settings.bestsellers_block_type) && $theme_settings.bestsellers_block_type == 'slider'}
+
+    {include file="promo-slider.html" products=$bestsellers}
+
+    {else}
+
+    <div class="special-offers">
+        {include file="list-thumbs.html" products=$bestsellers}
+    </div>
+
+    {/if}
+
+{else}
+    <p class="hint align-center">{sprintf('[`Product set with the ID <strong>%s</strong> either does not exist or does not contain any product. Add some products into a product set with the specified ID to make these products featured here.`]','bestsellers')}</p>
+{/if}
+{else}
+
+<!-- retail rocket-->
+<div class="rr-widget"
+     data-rr-widget-type="personal"
+     data-rr-widget-id="5710c3c868e9a725981081e4"
+     data-rr-widget-width="100%"></div>
+<!-- /retail rocket-->
+
+{/if}
+
+
+
+<div class="clear-both"></div>
+
+{include file="recent_products.html" inline}
+
+<!-- GENERAL WELCOME TEXT -->
+
+{if !empty($theme_settings.welcome_header)}
+<h3 class="title align-center">{$theme_settings.welcome_header}</h3>
+{else if (empty($promos) && empty($bestsellers))}
+<h3 class="title align-center">[`Welcome to your new online store!`]</h3>
+{/if}
+
+<div style="margin-bottom:10px;">
+    {if !empty($theme_settings.welcome_text)}
+    {$theme_settings.welcome_text}
+    {else if (empty($promos) && empty($bestsellers))}
+    {sprintf('[`Start by creating a product in your <a href="%s">store backend</a>.`]', $wa_backend_url|cat:'shop/?action=products#/welcome/')}
+    {/if}
+</div>
+
+<!-- eof GENERAL WELCOME TEXT -->
+
+{if $wa->shop->ABtest(1) == 'B'}
+<div class="rr-widget"
+     data-rr-widget-type="main-page"
+     data-rr-widget-category-id="0"
+     data-rr-widget-id="5710c3c868e9a725981081e7"
+     data-rr-widget-width="100%"></div>
+{/if}     
+
+<!-- tags -->
+<!--{$cloud = $wa->shop->tags()}
+{if $cloud}
+    <h3 class="align-center">[`Tags`]</h3>
+    <div class="align-center tags">
+        {foreach $cloud as $tag}
+            <a href="{$wa_app_url}tag/{$tag.uri_name}/" style="font-size:{$tag.size}%; opacity:{$tag.opacity}">{$tag.name|escape}</a>
+        {/foreach}
+    </div>
+{/if} -->
+
+

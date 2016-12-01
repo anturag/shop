@@ -1,0 +1,25 @@
+{$list_type = 'thumbs'}
+{if waRequest::cookie('view_select') == 'table'}{$list_type = 'table'}{/if}
+<div class="view-select float-right">
+    <i class="icon24 thumbs{if $list_type == 'thumbs'} selected{/if}"></i>
+    <i class="icon24 table{if $list_type == 'table'} selected{/if}"></i>
+</div>
+
+<h1 class="category-name">
+    {$title}
+</h1>
+
+<!-- plugin hook: 'frontend_search' -->
+{* @event frontend_search.%plugin_id% *}
+{foreach $frontend_search as $_}{$_}{/foreach}
+{if !$products}
+    <p>[`No products were found.`]</p>
+{else}
+    <div id="product-list" class="products-wrap">
+    {include file="list-$list_type.html"}
+    </div>
+{/if}
+
+<div class="clear-both"></div>
+
+{include file="recent_products.html" inline}

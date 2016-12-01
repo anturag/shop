@@ -1,0 +1,409 @@
+<script type="text/javascript">
+    rrApiOnReady.push(function() {
+		try{ rrApi.view({$product.id}); } catch(e) {}
+	})
+</script>
+<link href="{$wa_theme_url}zoombox.css?v{$wa_theme_version}" rel="stylesheet" />
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-plugins/jquery.cookie.js?v={$wa->version()}"></script>
+<script type="text/javascript" src="{$wa_theme_url}zoombox.js?v{$wa_theme_version}"></script>
+
+<div itemscope itemtype="http://schema.org/Product">
+
+    <h1 itemprop="name">
+        {$product.name|escape}
+        {if !empty($product.rating) && $product.rating > 0}
+        <span class="rating nowrap" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" title="{sprintf('[`Average user rating: %s / 5`]', $product.rating)}">
+            {$wa->shop->ratingHtml($product.rating, 16)}
+            <span itemprop="ratingValue" style="display: none;">{$product.rating}</span>
+            <span itemprop="reviewCount" style="display: none;">{$reviews_total_count}</span>
+        </span>
+        {/if}
+    </h1>
+
+    <!-- GALLERY -->
+    {if $product.images}
+    <div class="sidebar left triple">
+        <div class="product-page" id="overview">
+
+            <!-- image gallery -->
+            <div class="align-center">
+                <!-- main image -->
+                <div class="image" id="product-core-image">
+                    <div class="corner top right">
+                        {$wa->shop->badgeHtml($product.badge)}
+                    </div>
+                    <a href="{$wa->shop->productImgUrl($product, '970')}" class="zoombox zoomin">
+                        {$wa->shop->productImgHtml($product, '750x0', ['itemprop'=>'image', 'id'=>'product-image', 'alt'=>$product.name|escape|cat:' ':strip_tags($product.summary)|escape ])}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {/if}
+
+    <!-- PURCHASE -->
+    <div class="content{if $product.images} left triple{/if}">
+
+        <div class="cart" id="cart-flyer">
+
+            <!-- add to cart -->
+            {$_hide_block_header=1}
+            {include file="product.cart.html" inline}
+            
+
+            <!-- compare -->
+            {if empty($theme_settings.hide_compare)}
+                <p>
+                    <a {if $compare}style="display:none"{/if} class="compare-add inline-link" data-product="{$product.id}" href="#"><b><i>[`Add to comparison table`]</i></b></a>
+                    <a {if !$compare}style="display:none"{/if} class="compare-remove inline-link" data-product="{$product.id}" href="#"><b><i>[`Remove from comparison table`]</i></b></a>
+                    <a id="compare-link" {if count($compare) < 2}style="display:none"{/if} href="{$wa->getUrl('/frontend/compare/', ['id' => implode(',', $compare) ])}" class="bold">[`Compare`] <span class="count">{count($compare)}</span></a>
+                </p>
+            {/if}
+
+            <!-- plugin hook: 'frontend_product.cart' -->
+            {* @event frontend_product.%plugin_id%.cart *}
+            {foreach $frontend_product as $_}{$_.cart}{/foreach}
+
+            <!-- social buttons -->
+            {if empty($theme_settings.hide_social) && $wa->locale() == 'ru_RU'}
+            <div class="social">
+                <script type="text/javascript" src="//yandex.st/share/share.js"charset="utf-8"></script>
+                <div>Поделиться: </div><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,moimir,odnoklassniki,yaru,gplus,lj"></div>
+            </div>
+            {/if}
+
+        </div>
+
+        <!-- categories -->
+        {if $product.categories}
+            <p id="product-categories">
+            [`Categories`]:
+                {foreach $product.categories as $c}{if $c.status}
+                    <span class="product-info"><a href="{$wa->getUrl('/frontend/category', ['category_url' => $c.full_url])}">{$c.name|escape}</a></span>
+                {/if}{/foreach}
+            </p>
+        {/if}
+
+        <!-- plugin hook: 'frontend_product.block_aux' -->
+        {* @event frontend_product.%plugin_id%.block_aux *}
+        {if !empty($frontend_product)}
+        <div class="aux">
+            {foreach $frontend_product as $_}{$_.block_aux}{/foreach}
+        </div>
+        {/if}
+
+    </div>
+   
+
+
+    <!-- gallery -->
+    {if count($product.images) > 1}
+    <div class="gallery clear-both" id="product-gallery">
+        {foreach $product.images as $image}
+            <div class="image{if $image.id == $product.image_id} selected{/if}">
+                <a id="product-image-{$image.id}"
+                    href="#">{$wa->shop->productImgHtml(['id'=>$product.id, 'image_id'=>$image.id, 'ext'=>$image.ext, 'image_desc'=>ifempty($image.description, $product.name)|escape], '48x48', ['alt'=>$product.name|cat:' - '|cat:$image.description|escape])}</a>
+            </div>
+        {/foreach}
+    </div>
+    {/if}
+    
+    
+    <div class="top-padded clear-both">
+
+        <!-- product info -->
+        <div class="info-block">
+            <ul class="info-block-menu">
+                {$_desc = trim($product.description)}
+
+               
+                <li class="tab-menu selected" value="1">
+                    <span>[`Overview`]</span>
+                </li>
+                
+
+                {if $product.features}
+                <li class="tab-menu" value="2">
+                    <span>[`Features`]</span>
+                </li>
+                {/if}
+
+                {if empty($theme_settings.hide_reviews)}
+                <li class="tab-menu" value="3">
+                    <span>[`Reviews`]&nbsp;<em itemprop="reviewCount">({$reviews_total_count})</em></span>
+                   
+                </li>
+                {/if}
+
+                {foreach $product.pages as $page}
+                <li class="tab-menu" value="{$page@iteration+3}">
+                    <span>{$page.name|escape}</span>
+                </li>
+                {/foreach}
+
+                <!-- plugin hook: 'frontend_product.menu' -->
+                {* @event frontend_product.%plugin_id%.menu *}
+                {foreach $frontend_product as $_}{$_.menu}{/foreach}
+
+                <li class="print-version non-mobile-only">
+                    <a href="#" onClick="return print()"><img src="{$wa_theme_url}img/print24.png" title="[`Print`]" /></a>
+                </li>
+
+            </ul>
+
+            <div class="info-block-content">
+                <!-- description -->
+               
+                <div id="tab1">
+                    <div class="tab-head"><h2>[`Overview`]</h2></div>
+                    <div class="tab-content">
+                        <div class="description" id="product-description" itemprop="description">{$_desc}</div>
+                        
+                    </div>
+                </div>
+               
+
+                <!-- product features -->
+                {if $product.features}
+                <div id="tab2" style="display:none;">
+                    <div class="tab-head"><h2>[`Features`]</h2></div>
+                    <div class="tab-content">
+                        <table class="features" id="product-features">
+                            {foreach $product.features as $f_code => $f_value}
+                                <tr>
+                                    <td class="name">
+                                        {$features[$f_code].name|escape}
+                                    </td>
+                                    <td class="value" itemprop="{$f_code|escape}">
+                                        {if is_array($f_value)}
+                                            {implode(', ', $f_value)}
+                                        {else}
+                                            {$f_value}
+                                        {/if}
+                                    </td>
+                                </tr>
+                            {/foreach}
+                            
+                        </table>
+                    </div>
+                </div>
+                {/if}
+                {literal} 
+                    <script type="text/javascript">
+                        if ($('#tab2 tr').find('#product-features td[itemprop="yandeksmarket"]')) {
+                        $('#product-features td[itemprop="yandeksmarket"]').parent().hide();
+                        console.log('1');
+                        if ($('#tab2 tr').length <= 1) {
+                            console.log('2');
+                            $('.info-block-menu .tab-menu[value="2"]').hide();
+                        }
+                    };
+                    </script>
+                {/literal}
+               
+
+                <!-- product reviews -->
+                {if empty($theme_settings.hide_reviews)}
+                <div id="tab3" style="display:none;">
+                    <div class="tab-head"><h2>[`Reviews`]</h2></div>
+                    <div class="tab-content">
+                        <div class="reviews">
+                          <h3 class="tab-head">{sprintf('[`%s reviews`]', $product.name|escape)}</h3>
+                            {if $reviews}
+                            <ul class="menu-v with-icons">
+                            {foreach $reviews as $review}
+                                <li data-id={$review.id} data-parent-id="0">
+                                    {include file='review.html' reply_allowed=false inline}
+                                </li>
+                            {/foreach}
+                            </ul>
+                            {/if}
+                            {if !$reviews}
+                                {if empty($theme_settings.hide_write_review)}
+                                    {sprintf('[`Be the first to <a href="%s">write a review</a> of this product!`]', 'reviews/')}
+                                {/if}
+                            {else}
+                                {sprintf(_w(
+                                    'Read <a href="%s">all %d review</a> on %s',
+                                    'Read <a href="%s">all %d reviews</a> on %s',
+                                    $reviews_total_count, false
+                                ), 'reviews/', $reviews_total_count, $product.name|escape)};
+                            {/if}
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+                {/if}
+               
+
+                {foreach $product.pages as $page}
+                <div id="tab{$page@iteration + 3}" style="display:none;">
+                    <div class="tab-head"><h2>{$page.name|escape}</h2></div>
+                    <div class="tab-content">
+                        {*include file='product.page.html' page=$page*}
+                        {include file="string:`$page.content`"}
+                    </div>
+                </div>
+                {/foreach}
+                
+                  
+                <!-- plugin hook: 'frontend_product.block' -->
+                {* @event frontend_product.%plugin_id%.block *}
+                {foreach $frontend_product as $_}{$_.block}{/foreach}
+
+            </div>
+            
+        </div>
+        
+        {shopYmreviewsPlugin::shopOpinionsHelper()}
+        
+          {literal}<div class="info-block">
+                        <!-- Put this div tag to the place, where the Comments block will be -->
+                        <div id="vk_comments" class="info-block-menu"></div>
+                        <script type="text/javascript">
+                        VK.Widgets.Comments("vk_comments", {limit: 20, attach: "*"});
+                        </script>
+                     </div>
+                    {/literal}
+
+        <!-- tags -->
+        {if $product.tags}
+            <p class="tags" id="product-tags">
+                [`Tags`]:
+                <span class="product-info">
+                {foreach $product.tags as $t}
+                    <a href="{$wa->getUrl('/frontend/tag', ['tag' => urlencode($t)])}">{$t}</a>
+                {/foreach}
+                </span>
+            </p>
+        {/if}
+    </div>
+
+</div>
+
+{if $wa->shop->ABtest(1) == 'A'}
+
+
+
+
+<!-- RELATED PRODUCTS -->
+{$upselling = $product->upSelling()}
+{$crossselling = $product->crossSelling()}
+
+{if $upselling || $crossselling}
+    <div class="top-padded clear-both">
+
+        {if $upselling}
+            <div class="related">
+                <div class="float-right">
+                    {$compare_ids = array_merge(array($product.id), array_keys($upselling))}
+                    <input type="button" onClick="javascript:window.location='{$wa->getUrl('/frontend/compare', ['id' => implode(',', $compare_ids)])}';" value="[`Compare all`]" />
+                </div>
+                <h3>[`See also`]:</h3>
+                <div class="special-offers">
+                    {include file="list-thumbs.html" products=$upselling}
+                </div>
+            </div>
+        {/if}
+
+        {if $crossselling}
+            <div class="related">
+                <h3>[`Customers who bought this product also purchased`]:</h3>
+                <div class="special-offers">
+                    {include file="list-thumbs.html" products=$crossselling}
+                </div>
+            </div>
+        {/if}
+
+    </div>
+{/if}
+</-->
+{else}
+
+<!-- retailrocket -->
+<div class="rr-widget" 
+     data-rr-widget-product-id="{$product.id|escape}"
+     data-rr-widget-id="5710c3c868e9a725981081e3"
+     data-rr-widget-width="100%"></div>
+<!-- /rocket -->
+{/if}
+<div id="print-version" style="display:none;">
+    <style>
+        .print-table h2, .print-table h4 { margin-bottom: 0; }
+        .print-image { width: 400px; }
+        .print-image img { max-width: 100%; }
+        .print-table textarea { width: 100%; height: 100px; }
+        .noprint { text-align: right; vertical-align: top; }
+    </style>
+    <style media="print" type="text/css">
+        .noprint input { display: none; }
+    </style>
+    <table width="100%" class="print-table">
+        <tr>
+            <td><span>{$wa->shop->settings('name')}</span></td>
+            <td align="right"><span>{$wa->shop->settings('phone')}</span></td>
+        </tr>
+        <tr><td colspan="2"><hr /></td></tr>
+        <tr><td><span>{$product.name|escape}</span></td><td class="noprint"><input type="button" value="[`Print`]" onclick="print()"></input></td></tr>
+        <tr><td colspan="2">
+            <span>[`Price`]: {shop_currency_html($product.price)}</span>
+            <div class="print-image" style="width:400px;">{$wa->shop->productImgHtml($product, '750x0', ['itemprop'=>'image', 'id'=>'product-image', 'alt'=>$product.name|escape ])}</div>
+            <p>{$product.description}</p>
+            {if $product.features}
+            <span>[`Features`]:</span>
+            <table width="100%">
+            {foreach $product.features as $f_code => $f_value}
+                <tr>
+                    <td>
+                       {$features[$f_code].name|escape}
+                    </td>
+                    <td>
+                        {if is_array($f_value)}
+                            {implode(', ', $f_value)}
+                        {else}
+                            {$f_value}
+                        {/if}
+                    </td>
+                </tr>
+            {/foreach}
+            </table><br />
+            {/if}
+        </td></tr>
+        <tr><td colspan="2">
+            [`Comment`]
+            <textarea class="print-comment"></textarea>
+        </td></tr>
+        {if !empty($theme_settings.text_for_print)}
+        <tr><td colspan="2"><br />{$theme_settings.text_for_print}</td></tr>
+        {/if}
+    </table>
+</div>
+
+<script type="text/javascript">
+    var currency = {json_encode($currency_info)}, w;
+    {if count($product.skus) > 1 or $product.sku_type}
+        var sku_services = {json_encode($sku_services)};
+    {/if}
+    {if $product.sku_type}
+        var sku_features = {json_encode($sku_features_selectable)};
+    {/if}
+    var recent_products = $.cookie('recent_products');
+    products = ['{$product.id}'];
+    if (recent_products) {
+        var p = recent_products.split(',');
+        for (var i in p) {
+            if (p[i] != '{$product.id}' && i < 4) {
+                products.push(p[i]);
+            }
+        }
+    }
+    function print() {
+        w = window.open('', '', 'width=800,height=600,resizable=yes,scrollbars=yes,status=no');
+        w.document.write($('#print-version').html());
+        w.document.title = '[`Print`]';
+        return false;
+    }
+    $.cookie('recent_products', products.join(','), { expires: 7, path: '/'});
+</script>

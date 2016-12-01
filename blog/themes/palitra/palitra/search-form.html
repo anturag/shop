@@ -1,0 +1,7 @@
+<!-- search -->
+<form method="get" action="{$wa_app_url}">
+    <div class="wrap">
+        <input type="search" name="query" {if !empty($blog_query)}value="{$blog_query}"{/if} placeholder="[`Search posts`]">
+        <button type="submit"></button>
+    </div>
+</form>

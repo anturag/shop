@@ -1,0 +1,12 @@
+<!-- apps -->
+<div class="apps">
+    <ul class="menu-h">
+    {strip}
+    {foreach $wa->apps() as $a}
+        {if $a.name}
+        <li{if $a.url==$wa_app_url} class="selected"{/if}><a href="{$a.url}">{$a.name}</a></li>
+        {/if}
+    {/foreach}
+    {/strip}
+    </ul>
+</div>

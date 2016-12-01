@@ -1,0 +1,21 @@
+<div class="float-right" align="right">
+
+    <!-- contacts -->
+    <div>
+        &copy; {time()|wa_datetime:"Y"} <a href="{$wa_static_url}">{$_logo_text}</a>
+    </div>
+    {if $wa->shop && $wa->shop->settings('phone')}<div><i class="icon16 phone non-mobile-only"></i> {$wa->shop->settings('phone')}</div>{/if}
+    {if $wa->shop && $wa->shop->settings('email')}<div><a href="mailto:{$wa->shop->settings('email')}"><i class="icon16 email non-mobile-only"></i> {$wa->shop->settings('email')}</a></div>{/if}
+
+    <!-- powered by -->
+    <div class="non-mobile-only">
+        {if $theme_settings.powered_by == 'Webasyst'}
+            <a class="poweredby" role="complementary" title="Powered by Webasyst" href="http{if waRequest::isHttps()}s{/if}://www.webasyst.com/" target="_blank">
+                <span class="dots"></span>
+            </a>
+        {else}
+            {$theme_settings.powered_by}
+        {/if}
+    </div>
+
+</div>

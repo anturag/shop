@@ -1,0 +1,43 @@
+<!-- filtering by product features -->
+{if !empty($filters) && $theme_settings.filters_place == 'sidebar'}
+    <div class="sidebar-box" id="sidebar-filters">
+        {include file="`$wa_active_theme_path`/filters.html" inline}
+    </div>
+{/if}
+
+ <!-- PROMOS -->
+<!--{if $promocards = $wa->shop->promos()}
+    {foreach $promocards as $promo}
+        <div class="sidebar-block">
+            <section class="promos">
+                <div id="s-promo-{$promo.id}">
+                    <a href="{$promo.link|escape}" style="background-image: url('{$promo.image}');">
+                        <div class="background-color-layer"></div>
+                        {if !empty($promo.title)}<h5 style="color: {$promo.color};">{$promo.title|escape}</h5>{/if}
+                        {if !empty($promo.body)}<p style="color: {$promo.color};">{$promo.body|escape}</p>{/if}
+                    </a>
+                </div>
+            </section>
+        </div>
+    {/foreach}
+{/if}-->
+
+<!-- pages -->
+{$_pgs = array()}
+{if $theme_settings.pages_app == 'site'}
+    {$_pgs = $wa->shop->pages()}
+{/if}
+{if $_pgs}
+    <div class="sidebar-block">
+        <div class="header">
+            <h3>[`Pages`]</h3>
+        </div>
+        <div class="content {if $theme_settings.page_nav_mode == 'accordion'}accordion{else}dropdown{/if}">
+            {if isset($page.id)}{$_pid = $page.id}{else}{$_pid = null}{/if}
+            {wa_print_tree tree=$_pgs selected=$_pid unfolded=true class="menu-v dhtml" collapsible_class='collapsible'
+                elem='<div class="table"><span class="wide"><a href=":url"><span></span><span class="wide">:name</span></a></span><span><i></i></span></div>'}
+        </div>
+    </div>
+{/if}
+
+<a href="http://clck.yandex.ru/redir/dtype=stred/pid=47/cid=1248/*http://market.yandex.ru/shop/86550/reviews/add"><img src="http://clck.yandex.ru/redir/dtype=stred/pid=47/cid=1248/*http://img.yandex.ru/market/informer9.png" style="margin-top:20px;" border="0" alt="Оцените качество магазина на Яндекс.Маркете." /></a>

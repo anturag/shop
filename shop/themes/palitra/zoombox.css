@@ -1,0 +1,21 @@
+#zb-overlay {position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: #000;}
+#zb-center, #zb-bottom-container {position: absolute; z-index: 10001; overflow: hidden; background-color: #fff;}
+#zb-image {position: absolute; left: 0; top: 0; border: 10px solid #fff;}
+#zb-image div {text-align: center;}
+#zb-prev-link, #zb-next-link, #zb-close-link {display: block; width: 16px; height: 16px; cursor: pointer;}
+#zb-prev-link, #zb-next-link {float: left;}
+#zb-close-link {float: right;}
+#zb-prev-link {background: transparent url(img/zoombox/arrow_l.png) no-repeat;}
+#zb-next-link {background: transparent url(img/zoombox/arrow_r.png) no-repeat; margin-left:1em;}
+#zb-close-link {background: transparent url(img/zoombox/cross.png) no-repeat; margin-left: 2em;}
+#zb-number {float: left; margin: 1px 0 0 10px; font-style: normal; color: #666;}
+#zb-prev-link.disabled, #zb-next-link.disabled {cursor: default;}
+#zb-bottom {margin: 0 10px 10px 10px;}
+#zb-name {overflow: hidden; padding-bottom: 5px; color: #666; white-space: nowrap;}
+#zb-name i {box-shadow: -10px 0 10px #fff inset; display: block; height: 1.3em; position: absolute; right: 10px; top: 0; width: 4em;}
+#zb-wrap {overflow: hidden;}
+.zb-loading {background: #fff url(img/zoombox/loading.gif) no-repeat center;}
+.zoomin {cursor: url(img/zoombox/zoomin.png), pointer;}
+.zoomout {cursor: url(img/zoombox/zoomout.png), pointer;}
+.select {background: transparent url(img/zoombox/ok.png) no-repeat scroll 0 -3px; padding-left: 1.5em; cursor: pointer;}
+.select:hover {text-decoration: underline;}

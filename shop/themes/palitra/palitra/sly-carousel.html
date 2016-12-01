@@ -1,0 +1,99 @@
+<div class="frame product-list mini" id="sld">
+    <ul>
+
+
+<!--{if $p.summary}<span itemprop="description" class="summary">{$p.summary|truncate:100}</span>{/if}-->
+{$_size = '200x0'}
+{foreach $products as $p}
+{if empty($p.min_price) || empty($p.max_price) || $p.min_price == $p.max_price}
+    {$_price = shop_currency_html($p.price)}
+{else}
+    {$_price = shop_currency_html($p.min_price)|cat:' ... '|cat:shop_currency_html($p.max_price)}
+{/if}
+{$available = $wa->shop->settings('ignore_stock_count') || $p.count === null || $p.count > 0}
+
+<li itemscope itemtype="http://schema.org/Product" >
+    <div title="{$p.name}" class="product">
+    
+        <a itemprop="name" style="heidght: 50px;display: block; font-size: 14px;color:#201e1f;" href="{$p.frontend_url}">{$p.name}</a>
+        
+        <a href="{$p.frontend_url}">
+        {$wa->shop->productImgHtml($p, '200x200', ['itemprop' => 'image', 'alt' => $p.name, 'default' => "`$wa_theme_url`img/dummy96x96.png"])}
+            <!--{$badge_html = $wa->shop->badgeHtml($p.badge)}
+                {if $badge_html}
+                    <div class="akciya"></div>
+                {/if}-->
+        </a>
+        
+        <p class="price" itemprop="offers">
+{if $p.compare_price > 0}<del>{shop_currency_html($p.compare_price)}</del>{/if}&nbsp;&nbsp;<span itemprop="price">{shop_currency_html($p.price)}</span>
+        </p>
+        
+        <p style="height: 80px;" class="description" itemprop="description" >{if $p.summary}<span itemprop="description" class="summary">{$p.summary|truncate:70}</span>{/if}</p>
+        
+        <div class="product_cart">
+            <form class="in_cart addtocart" {if $p.sku_count > 1 && !$wa->isMobile()}data-url="{$p.frontend_url}{if strpos($p.frontend_url, '?')}&{else}?{/if}cart=1"{/if} method="post" action="{$wa->getUrl('shop/frontendCart/add')}">
+            
+                <input type="hidden" name="product_id" value="{$p.id}">
+
+                <!--<div class="colors">-->
+                <!--    <div class="color pink"></div>-->
+                <!--    <div class="color orange"></div>-->
+                <!--    <div class="color red"></div>-->
+                <!--    <div class="color blue"></div>-->
+                <!--    <div class="color green"></div>-->
+                <!--    <a href="{$p.frontend_url}">еще 12 цв.</a>-->
+                <!--</div>-->
+                <div class="count">
+                    <input name="quantity" type="number" value="1" min="1" />
+                    <label>шт.</label>
+                </div>
+                <div class="crt_btn">
+                    <!--<button type="submit" class="cart_button">+ в корзину</button>-->
+                    <input type="submit" value="Купить" />
+                    <span class="added2cart" style="display:none;"><a href="{$wa->getUrl('shop/frontend/cart')}">[`Item in cart`]</a></span>
+                </div>
+        
+        </form>
+        </div>
+        <div class="dop_info">
+            <div class="wf5">
+                <p class="ob"><span>Объем</span> <span class="v">12 мл.</span></p>
+            </div>
+            <div class="wf5">
+            {if $available}
+                <p class="have"><span>В наличии</span></p>
+            {else}
+                <p class="have not"><span>Отсутствует</span></p>
+            {/if}
+            </div>
+        </div>
+    </div>
+</li>
+
+    {/foreach}
+    
+        
+    </ul>
+</div>
+<script>
+$(function() {
+    var product_list_item_height = 0, h = 0;
+    $('#sld li').each(function(i) {
+        h = $(this).height();
+        if (h > product_list_item_height) {
+            product_list_item_height = h;
+        }
+    });
+    if (product_list_item_height) {
+        $('#sld li').css('height', product_list_item_height + 'px');
+    }
+});
+</script>
+<!-- products thumbnail list view -->
+
+
+    
+    
+
+

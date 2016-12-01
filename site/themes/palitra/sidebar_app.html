@@ -1,0 +1,18 @@
+<!-- pages -->
+{$_pgs = array()}
+{if $theme_settings.pages_app == 'shop'}
+    {$_pgs = $wa->site->pages()}
+{/if}
+
+{if $_pgs}
+<div class="sidebar-block">
+    <div class="header">
+        <h3>[`Pages`]</h3>
+    </div>
+    <div class="content {if $theme_settings.page_nav_mode == 'accordion'}accordion{else}dropdown{/if}">
+        {if isset($page.id)}{$_pid = $page.id}{else}{$_pid = null}{/if}
+        {wa_print_tree tree=$_pgs selected=$_pid unfolded=true class="menu-v dhtml" collapsible_class='collapsible'
+            elem='<div class="table"><span class="wide"><a href=":url"><span></span><span class="wide">:name</span></a></span><span><i></i></span></div>'}
+    </div>
+</div>
+{/if}

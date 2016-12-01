@@ -1,0 +1,74 @@
+/*
+ * Light theme family
+ *
+ * Additional CSS for multi-touch mobile devices
+ * (requires linking core.css)
+ *
+ */
+
+body { font-size: 12px; -webkit-text-size-adjust: 100%; }
+html, body { min-width: 0 !important; }
+h1 { font-weight: bold; }
+h2.title { font-size: 1.5em; }
+h3.title { font-size: 1.3em; }
+.title { font-size: 150%; }
+
+.mobile-only { display: block; }
+.non-mobile-only { display: none !important; }
+
+.block { margin: 0 !important; }
+.top-padded { padding-top: 10px; }
+
+.container { min-width: 0; padding: 0 5px 10px; }
+.content.left { margin-left: 0 !important; clear: both !important; }
+.content.right { margin-right: 0 !important; clear: both !important; }
+
+.content img { max-width: 100%; height: auto !important; }
+
+#header .bottom .apps a { font-size: 0.9em; padding: 0 7px; }
+#header .title { margin-bottom: 0; }
+#header .auth ul { margin: 10px 0 0; }
+#header .auth ul li { padding: 0; }
+#header .logo img { max-width: 200px; }
+#header .logo a { font-size: 0.8em; }
+#cart { margin-left: 15px; }
+#cart i { padding-bottom: 5px; }
+
+#footer { padding-bottom: 10px; font-size: 0.8em; }
+#footer .container { margin: 0; }
+#footer li { padding: 0 !important; }
+#footer #copyright { padding-left: 0; }
+#footer #sub-links { margin-left: 0; margin-top: 30px; }
+#footer #sub-links ul li { float: none; margin-bottom: 5px; }
+
+.app-navigation { padding: 0; position: relative; }
+.app-navigation .phone { padding: 15px 20px 15px 0; line-height: 1.1em; }
+.app-navigation .float-right { float: left; /* override for mobile devices */ }
+
+/* make all dropdown menus unfold vertically */
+ul.menu-h.dropdown li.collapsible { padding-right: 50px; }
+ul.menu-h.dropdown li ul.menu-v { left: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.3); }
+ul.menu-h.dropdown li ul.menu-v li { position: relative; width: 100%; }
+ul.menu-h.dropdown li ul.menu-v li ul.menu-v { left: 15px; top: 33px !important; }
+ul.menu-h.dropdown li .inner { width: 90%; left: 15px; }
+ul.menu-h.dropdown li:hover > ul, ul.menu-h.dropdown li:hover .inner { visibility: hidden; opacity: 0; }
+ul.menu-h.dropdown ul.menu-v { margin-top: -5px; }
+ul.menu-h.dropdown ul.menu-v li.collapsible { background-image: url('img/darr.png') !important; margin-right: 10px !important; }
+.float-right ul.menu-h.dropdown ul.menu-v { left: inherit; right: inherit; }
+.float-right ul.menu-h.dropdown ul.menu-v li { padding: inherit; margin-left: inherit !important; }
+.float-right ul.menu-h.dropdown ul.menu-v li.collapsible { background-image: url('img/darr.png') !important; background-position: right center; padding-left: 0; margin-right: 10px !important; }
+.float-right ul.menu-h.dropdown ul.menu-v li ul.menu-v { left: 15px; right: inherit; }
+
+.page { margin-right: 0; }
+
+.comment-form-fields label { float: left; }
+
+.wa-form .wa-field .wa-name { float: none; padding-bottom: 0; }
+.wa-form .wa-field .wa-value { margin-left: 0; }
+.wa-form .wa-field .wa-value p span { display: block; }
+.wa-form .wa-field .wa-value input[type="text"],
+.wa-form .wa-field .wa-value input[type="email"],
+.wa-form .wa-field .wa-value input[type="password"] { min-width: 200px; }
+.wa-auth-adapters p { width: 80%; }
+.wa-captcha input.wa-captcha-input { width: 100px; }
+.errormsg { margin-left: 0; }

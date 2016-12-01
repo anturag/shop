@@ -1,0 +1,11 @@
+<h1>{sprintf('[`Hi %s`]', {$wa->user('firstname')})}</h1>
+
+{if method_exists($wa, 'myNav')}
+{foreach $wa->myNav() as $app_id => $nav}
+    {$nav}
+{/foreach}
+{/if}
+
+<!-- plugin hook: 'frontend_my' -->
+{* @event frontend_my.%plugin_id% *}
+{foreach $frontend_my as $_}{$_}{/foreach}

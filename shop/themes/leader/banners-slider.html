@@ -1,0 +1,26 @@
+{if $wa->photos && !empty($theme_settings.banner_album_id) && !$wa->isMobile()}
+    {$_photos = $wa->photos->photos("album/`$theme_settings.banner_album_id`")}
+{if !empty($_photos)}
+
+<!-- images -->
+<div class="bxslider-wrap non-mobile-only" style="width:{$theme_settings.banner_width}px">
+    <ul class="bxslider">
+        {foreach $_photos as $_p}
+            {$_url = false}
+            {if !empty($theme_settings.banner_href)}
+                {$_url = $theme_settings.banner_href}
+            {else if strpos($_p.description, '/') !== false}
+                {$_url = $_p.description}
+            {/if}
+            <li>
+                {if $_url}<a href="{$_p.description}">{/if}
+                {$wa->photos->getImgHtml($_p, "`$theme_settings.banner_width`x0")}
+                {if $_url}</a>{/if}
+            </li>
+        {/foreach}
+    </ul>
+</div>
+<!-- eof images -->
+
+{/if}
+{/if}

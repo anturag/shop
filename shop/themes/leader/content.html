@@ -1,0 +1,95 @@
+<!-- plugin hook: 'frontend_header' -->
+{* @event frontend_header.%plugin_id% *}
+{foreach $frontend_header as $_}{$_}{/foreach}
+
+<!-- current page core content -->
+
+{$_class = ''}
+{if empty($theme_settings.hide_sidebar)}
+    {include file="sidebar.html"}
+    {$_class = ' left'}
+{/if}
+
+{if !$wa->isMobile() && $wa->block("shop.right_sidebar")}
+    <div class="sidebar right non-mobile-only">{$wa->block("shop.right_sidebar")}</div>
+    {$_class = $_class|cat:' right'}
+{/if}
+
+<div class="content{$_class}">
+    <div class="float-left wide">
+
+        {include file="`$wa_active_theme_path`/navigation.html" inline}
+        
+
+        {if !empty($theme_settings.shop_service_ads)}
+            <div class="service-ad">
+                {$theme_settings.shop_service_ads}
+            </div>
+        {/if}
+
+        <div class="content-top">
+
+            <!-- currency selector -->
+           <!-- {if !empty($currencies) && count($currencies) > 1}
+            <div class="float-right currency-toggle">
+                <select id="currency">
+                    {$currency = $wa->shop->currency()}
+                    {foreach $currencies as $c_code => $c}
+                        <option value="{$c_code}" {if $c_code == $currency} selected{/if}>{$c.title}</option>
+                    {/foreach}
+                </select>
+                <script>
+                    $('#currency').change(function () {
+                        var url = location.href;
+                        if (url.indexOf('?') == -1) {
+                            url += '?';
+                        } else {
+                            url += '&';
+                        }
+                        location.href = url + 'currency=' + $(this).val();
+                    });
+                </script>
+            </div>
+            {/if}-->
+
+            <!-- search -->
+            <form method="get" action="{$wa->getUrl('shop/frontend/search')}">
+                <input type="text" name="query" {if !empty($query)}value="{$query}"{/if} id="search" placeholder="[s`Find products`]">
+            </form>
+{shopGeoipPlugin::display()}
+        </div>
+
+
+        <!-- integrnal navigation breadcrumbs -->
+        {if !empty($breadcrumbs)}
+            <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#"><span typeof="v:Breadcrumb">
+            <a href="/" rel="v:url" property="v:title">Материалы для ногтей</a> <span class="rarr">&rarr;</span></span> 
+                {foreach $breadcrumbs as $breadcrumb}
+                 <span typeof="v:Breadcrumb">   <a href="{$breadcrumb.url}" rel="v:url" property="v:title">{$breadcrumb.name|escape}</a> <span class="rarr">&rarr;</span></span>
+                {/foreach}
+                    <span class="rarr" typeof="v:Breadcrumb" property="v:title">{if $category.name}{$category.name|escape}{/if}</span>
+            </div>
+        {elseif empty($breadcrumbs) and $category.name}
+        <div class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#"><span typeof="v:Breadcrumb">
+            <a href="/" rel="v:url" property="v:title">Материалы для ногтей</a> <span class="rarr">&rarr;</span></span> 
+            <span class="rarr" typeof="v:Breadcrumb"  property="v:title">{if $category.name}{$category.name|escape}{/if}</span>
+        </div>    
+        {/if}
+
+        <div class="clear-both"></div>
+
+        {$content}
+
+    </div>
+</div>
+
+<div class="clear-both"></div>
+
+<div id="dialog" class="dialog">
+    <div class="dialog-background"></div>
+    <div class="dialog-window">
+        <!-- common part -->
+        <div class="cart"></div>
+        <!-- /common part -->
+    </div>
+</div>

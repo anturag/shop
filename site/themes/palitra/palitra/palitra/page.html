@@ -1,0 +1,34 @@
+<div class="page" role="main">
+
+    <!-- navigation breadcrumbs -->
+    {if !empty($breadcrumbs)}
+        <div class="breadcrumbs">
+            {foreach $breadcrumbs as $breadcrumb}
+                <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a> <span class="rarr">&rarr;</span>
+            {/foreach}
+        </div>
+    {/if}
+
+    <h1>{$page.name}</h1>
+
+    {$_pages = $wa->site->pages()}
+    {if !empty($_pages[$page.id].childs)}
+        {$_childs = $_pages[$page.id].childs}
+    {else if !empty($_pages[$page.parent_id].childs)}
+        {foreach $_pages[$page.parent_id].childs as $_p}
+            {if $_p.id == $page.id && !empty($_p.childs)}
+                {$_childs = $_p.childs}
+            {/if}
+        {/foreach}
+    {/if}
+    {if !empty($_childs)}
+   <!-- <ul class="sub-pages">
+        {foreach $_childs as $_p}
+            <li><a href="{$_p.url}">{$_p.name|escape}</a></li>
+        {/foreach}
+    </ul> -->
+    {/if}
+
+    {$page.content}
+
+</div>

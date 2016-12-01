@@ -1,0 +1,105 @@
+<script type="text/javascript">
+    rrApiOnReady.push(function() {
+		try { rrApi.categoryView({$category.id}); } catch(e) {}
+	})
+</script>
+{$list_type = 'thumbs'}
+{if waRequest::cookie('view_select') == 'table'}{$list_type = 'table'}{/if}
+<div class="view-select float-right">
+    <span>[`View:`]</span>
+    <i class="icon24 thumbs{if $list_type == 'thumbs'} selected{/if}"></i>
+    <i class="icon24 table{if $list_type == 'table'} selected{/if}"></i>
+</div>
+
+<span class="category-name">
+    {$category.name|escape}
+</span>
+
+<div style="display: none;">
+    {if $category.parent_id == 687 && $category.id == 748 || $category.id == 746 || $category.id == 744 || $category.id == 747}
+        <!--hspan-->{$category.name|escape}<!--/hspan-->
+    {/if}
+    <!--hone-->{$category.name|escape}<!--/hone-->
+</div>
+
+<!-- plugin hook: 'frontend_category' -->
+{* @event frontend_category.%plugin_id% *}
+{foreach $frontend_category as $_}{$_}{/foreach}
+
+<!-- subcategories -->
+{if $category.subcategories}
+<ul class="sub-categories">
+    {foreach $category.subcategories as $sc}
+    <li><a href="{$sc.url}">{$sc.name|escape}</a>{if $sc.count}{if empty($theme_settings.hide_categories_count)} <span>({$sc.count})</span>{/if}</li>{/if}
+    {/foreach}
+</ul>
+{/if}
+
+<!-- filtering by product features -->
+{if !empty($filters)}
+    <div{if $theme_settings.filters_place == 'sidebar'} class="mobile-only"{/if}>
+        {include file="`$wa_active_theme_path`/filters.html" inline}
+    </div>
+{/if}
+
+
+
+<div id="product-list" class="products-wrap">
+<div style="display: none;">
+    {$smarty.get|@var_dump}
+</div>
+{if !$products}
+    {if !empty($filters)}
+        [`No products were found.`]
+    {else}
+        [`This category does not contain any products.`]
+    {/if}
+<div class="clear-both"></div>
+<h1 class="category-name">
+    {$category.name|escape}
+</h1>
+{else}
+
+{include file="list-$list_type.html" sorting=!empty($category.params.enable_sorting)}
+
+<div class="clear-both"></div>
+<h1 class="category-name">
+    {$category.name|escape}
+</h1>
+{if empty($smarty.get) || ({$smarty.get|@count} == 1 && !empty($smarty.get._))}
+<!-- description -->
+<!-- seoshieldstart-->
+
+
+{if $category.description}
+    <p>{$category.description}</p>
+{/if}
+<!-- seoshieldend-->
+{/if}
+
+{/if}
+</div>
+
+{if $wa->shop->ABtest(1) == 'A'}
+
+	
+
+
+{include file="recent_products.html" inline}
+{else}
+
+
+<!-- retailrocket -->
+
+<div class="rr-widget"
+     data-rr-widget-category-id="{$category.id}"
+     data-rr-widget-id="5710c3c868e9a725981081e6"
+     data-rr-widget-width="100%"></div>
+     <!-- retailrocket -->
+     
+{include file="recent_products.html" inline}
+     
+    {/if}
+
+
+

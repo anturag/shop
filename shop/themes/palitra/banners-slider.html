@@ -1,0 +1,48 @@
+{if $wa->photos && !empty($theme_settings.banner_album_id) && !$wa->isMobile()}
+    {$_photos = $wa->photos->photos("album/`$theme_settings.banner_album_id`")}
+{if !empty($_photos)}
+
+
+<section class="banners">
+    <div class="row">
+        <div class="col-xs-12 col-md-9">
+            <div id="owl">
+
+{foreach $_photos as $_p}
+            {$_url = false}
+            {if !empty($theme_settings.banner_href)}
+                {$_url = $theme_settings.banner_href}
+            {else if strpos($_p.description, '/') !== false}
+                {$_url = $_p.description}
+            {/if}
+            <div>
+                {if $_url}<a href="{$_p.description}"  >{/if}
+                {$wa->photos->getImgHtml($_p, "`$theme_settings.banner_width`x0")}
+                {if $_url}</a>{/if}
+            </div>
+        {/foreach}
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div class="two_banners">
+                <div class="row">
+                    <div class="col-xs-6 col-md-12">
+                        <a class="b1" href="http://shop.antu.ru/permanentniy_makiyag/">
+                            <img src="/template/img/banner-permanent.jpg" alt="" />
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-12">
+                        <a class="b2" href="http://shop.antu.ru/uhod_za_volosami/">
+                            <img src="/template/img/banner-hair-style.jpg" alt=""  />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{/if}
+{/if}
+

@@ -1,0 +1,7 @@
+<!-- see index.html for base footer layout -->
+
+<!-- plugin hook: 'frontend_footer' -->
+{if !empty($frontend_footer)}
+{* @event frontend_footer.%plugin_id% *}
+{foreach $frontend_footer as $_}{$_}{/foreach}
+{/if}

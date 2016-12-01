@@ -1,0 +1,352 @@
+<link href="{$wa_theme_url}zoombox.css?v{$wa_theme_version}" rel="stylesheet" />
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-plugins/jquery.cookie.js?v={$wa->version()}"></script>
+<script type="text/javascript" src="{$wa_theme_url}zoombox.js?v{$wa_theme_version}"></script>
+        <!-- categories -->
+        {if $product.categories}
+            <p id="product-categories">
+                {foreach $product.categories as $c}{if $c.status}
+                    <span class="product-info"><a href="{$wa->getUrl('/frontend/category', ['category_url' => $c.full_url])}">{$c.name|escape}</a></span>
+                {/if}{/foreach}
+            </p>
+        {/if}
+<div itemscope itemtype="http://schema.org/Product">
+    <div class="product-header">
+        <h1 class="product_title" itemprop="name">
+            {$product.name|escape}
+            {if !empty($product.rating) && $product.rating > 0}
+            <span class="rating nowrap" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" title="{sprintf('[`Average user rating: %s / 5`]', $product.rating)}">
+                {$wa->shop->ratingHtml($product.rating, 16)}
+                <span itemprop="ratingValue" style="display: none;">{$product.rating}</span>
+                <span itemprop="reviewCount" style="display: none;">{$reviews_total_count}</span>
+            </span>
+            {/if}
+        </h1>
+        <div class="product-price">
+            {if $product.compare_price > 0}<del class="compare-at-price nowrap"> {shop_currency_html($product.compare_price)} </del>{/if}
+            <span data-price="{shop_currency($product.price, null, null, 0)}" class="price nowrap">{shop_currency_html($product.price)}</span>
+        </div>
+    </div>        
+    <!-- GALLERY -->
+    <div class="product-body clearfix">
+    {if $product.images}
+    <div class="col-md-4">
+        <div class="product-page" id="overview">
+
+            <!-- image gallery -->
+            <div class="align-center">
+                <!-- main image -->
+                <div class="image" id="product-core-image">
+                    <div class="corner top right">
+                        {$wa->shop->badgeHtml($product.badge)}
+                    </div>
+                    <a href="{$wa->shop->productImgUrl($product, '970')}" class="zoombox zoomin">
+                        {$wa->shop->productImgHtml($product, '750x0', ['itemprop'=>'image', 'id'=>'product-image', 'alt'=>$product.name|escape|cat:' ':strip_tags($product.summary)|escape ])}
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <!-- gallery -->
+        {if count($product.images) > 1}
+        <div class="gallery clear-both" id="product-gallery">
+            {foreach $product.images as $image}
+                <div class="image{if $image.id == $product.image_id} selected{/if}">
+                    <a id="product-image-{$image.id}"
+                        href="#">{$wa->shop->productImgHtml(['id'=>$product.id, 'image_id'=>$image.id, 'ext'=>$image.ext, 'image_desc'=>ifempty($image.description, $product.name)|escape], '48x48', ['alt'=>$product.name|cat:' - '|cat:$image.description|escape])}</a>
+                </div>
+            {/foreach}
+        </div>
+        {/if}
+    </div>
+
+    {/if}
+
+    <!-- PURCHASE -->
+    <div class="content{if $product.images} col-md-8{else} col-md-12{/if}">
+
+        <div class="cart" id="cart-flyer">
+
+            <!-- add to cart -->
+            {$_hide_block_header=1}
+            {include file="product.cart.html" inline}
+            
+
+            <!-- plugin hook: 'frontend_product.cart' -->
+            {* @event frontend_product.%plugin_id%.cart *}
+            {foreach $frontend_product as $_}{$_.cart}{/foreach}
+
+            <!-- social buttons -->
+            {if empty($theme_settings.hide_social) && $wa->locale() == 'ru_RU'}
+            <div class="social">
+                <script type="text/javascript" src="//yandex.st/share/share.js"charset="utf-8"></script>
+                <div>Поделиться: </div><div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,moimir,odnoklassniki,yaru,gplus,lj"></div>
+            </div>
+            {/if}
+
+        </div>
+
+
+        <!-- plugin hook: 'frontend_product.block_aux' -->
+        {* @event frontend_product.%plugin_id%.block_aux *}
+        {if !empty($frontend_product)}
+        <div class="aux">
+            {foreach $frontend_product as $_}{$_.block_aux}{/foreach}
+        </div>
+        {/if}
+
+    </div>
+    <div class="col-md-12">{if $product.summary}<span itemprop="description" class="summary">{$product.summary|truncate:400}</span>{/if}</div>
+    <button form="cart-form" type="submit">[`Add to cart`]</button>
+   </div>
+<div class="col-md-12">
+    <div class="top-padded clear-both">
+
+        <!-- product info -->
+        <div class="info-block">
+            <ul class="info-block-menu">
+                {$_desc = trim($product.description)}
+
+               
+                <li class="tab-menu selected" value="1">
+                    <span>[`Overview`]</span>
+                </li>
+                
+
+                {if $product.features}
+                <li class="tab-menu" value="2">
+                    <span>[`Features`]</span>
+                </li>
+                {/if}
+
+                {if empty($theme_settings.hide_reviews)}
+                <li class="tab-menu" value="3">
+                    <span>[`Reviews`]&nbsp;<em itemprop="reviewCount">({$reviews_total_count})</em></span>
+                   
+                </li>
+                {/if}
+
+                {foreach $product.pages as $page}
+                <li class="tab-menu" value="{$page@iteration+3}">
+                    <span>{$page.name|escape}</span>
+                </li>
+                {/foreach}
+
+                <!-- plugin hook: 'frontend_product.menu' -->
+                {* @event frontend_product.%plugin_id%.menu *}
+                {foreach $frontend_product as $_}{$_.menu}{/foreach}
+
+            </ul>
+
+            <div class="info-block-content">
+                <!-- description -->
+               
+                <div id="tab1">
+                    <div class="tab-head"><h2>[`Overview`]</h2></div>
+                    <div class="tab-content">
+                        <div class="description" id="product-description" itemprop="description">{$_desc}</div>
+                        
+                    </div>
+                </div>
+               
+
+                <!-- product features -->
+                {if $product.features}
+                <div id="tab2" style="display:none;">
+                    <div class="tab-head"><h2>[`Features`]</h2></div>
+                    <div class="tab-content">
+                        <table class="features" id="product-features">
+                            {foreach $product.features as $f_code => $f_value}
+                                <tr>
+                                    <td class="name">
+                                        {$features[$f_code].name|escape}
+                                    </td>
+                                    <td class="value" itemprop="{$f_code|escape}">
+                                        {if is_array($f_value)}
+                                            {implode(', ', $f_value)}
+                                        {else}
+                                            {$f_value}
+                                        {/if}
+                                    </td>
+                                </tr>
+                            {/foreach}
+                            
+                        </table>
+                    </div>
+                </div>
+                {/if}
+                {literal} 
+                    <script type="text/javascript">
+                        if ($('#tab2 tr').find('#product-features td[itemprop="yandeksmarket"]')) {
+                        $('#product-features td[itemprop="yandeksmarket"]').parent().hide();
+                        console.log('1');
+                        if ($('#tab2 tr').length <= 1) {
+                            console.log('2');
+                            $('.info-block-menu .tab-menu[value="2"]').hide();
+                        }
+                    };
+                    </script>
+                {/literal}
+
+                <!-- product reviews -->
+                {if empty($theme_settings.hide_reviews)}
+                <div id="tab3" style="display:none;">
+                    <div class="tab-head"><h2>[`Reviews`]</h2></div>
+                    <div class="tab-content">
+                        <div class="reviews">
+                          <h3 class="tab-head">{sprintf('[`%s reviews`]', $product.name|escape)}</h3>
+                            {if $reviews}
+                            <ul class="menu-v with-icons">
+                            {foreach $reviews as $review}
+                                <li data-id={$review.id} data-parent-id="0">
+                                    {include file='review.html' reply_allowed=false inline}
+                                </li>
+                            {/foreach}
+                            </ul>
+                            {/if}
+                            {if !$reviews}
+                                {if empty($theme_settings.hide_write_review)}
+                                    {sprintf('[`Be the first to <a href="%s">write a review</a> of this product!`]', 'reviews/')}
+                                {/if}
+                            {else}
+                                {sprintf(_w(
+                                    'Read <a href="%s">all %d review</a> on %s',
+                                    'Read <a href="%s">all %d reviews</a> on %s',
+                                    $reviews_total_count, false
+                                ), 'reviews/', $reviews_total_count, $product.name|escape)};
+                            {/if}
+                           
+                            
+                        </div>
+                    </div>
+                </div>
+                {/if}
+
+                {foreach $product.pages as $page}
+                <div id="tab{$page@iteration + 3}" style="display:none;">
+                    <div class="tab-head"><h2>{$page.name|escape}</h2></div>
+                    <div class="tab-content">
+                        {*include file='product.page.html' page=$page*}
+                        {include file="string:`$page.content`"}
+                    </div>
+                </div>
+                {/foreach}
+                
+                  
+                <!-- plugin hook: 'frontend_product.block' -->
+                {* @event frontend_product.%plugin_id%.block *}
+                {foreach $frontend_product as $_}{$_.block}{/foreach}
+
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+</div>
+{if $bestsellers}
+
+     <div class="h2"><div class="row">
+        <div class="col-xs-12 col-md-4">[`Bestsellers`]</div>
+        <div class="col-xs-12 col-md-8">
+            <div class="sly_ctrl row">
+                <div class="col-xs-1">
+                    <span class="prev"><i class="fa fa-arrow-left"></i></span>
+                </div>
+                <div class="col-xs-10 scrollbar">
+                    <div class="handle">
+                        <div class="mousearea"></div>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <span class="next"><i class="fa fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {include file="sly-carousel.html" products=$bestsellers}
+
+{else}
+    <p class="hint align-center">{sprintf('[`Product set with the ID <strong>%s</strong> either does not exist or does not contain any product. Add some products into a product set with the specified ID to make these products featured here.`]','bestsellers')}</p>
+    
+    
+{/if}
+<!-- RELATED PRODUCTS -->
+{$upselling = $product->upSelling()}
+{$crossselling = $product->crossSelling()}
+
+{if $upselling || $crossselling}
+    <div class="top-padded clear-both">
+
+        {if $upselling}
+            <div class="related">
+                <div class="float-right">
+                    {$compare_ids = array_merge(array($product.id), array_keys($upselling))}
+                    <input type="button" onClick="javascript:window.location='{$wa->getUrl('/frontend/compare', ['id' => implode(',', $compare_ids)])}';" value="[`Compare all`]" />
+                </div>
+                <h3>[`See also`]:</h3>
+                <div class="special-offers">
+                    {include file="list-thumbs-mini.html" products=$upselling}
+                </div>
+            </div>
+        {/if}
+
+        {if $crossselling}
+            <div class="related">
+                <h3>[`Customers who bought this product also purchased`]:</h3>
+                <div class="special-offers">
+                    {include file="list-thumbs-mini.html" products=$crossselling}
+                </div>
+            </div>
+        {/if}
+
+    </div>
+{/if}
+
+<script type="text/javascript">
+    $('#minus').click(function(){
+        if(!$(this).closest('div.item-qty').find('.qty').val()){
+            $(this).closest('div.item-qty').find('.qty').val('0');
+        }
+       var curVal = $(this).closest('div.item-qty').find('.qty').val();
+       var nextVal;
+       if(curVal-1 > 0){
+           nextVal = parseInt(curVal)-1;
+           $(this).closest('div.item-qty').find('.qty').val(nextVal);  
+       }
+    });
+    $('#plus').click(function(){
+        if(!$(this).closest('div.item-qty').find('.qty').val()){
+            $(this).closest('div.item-qty').find('.qty').val('0');
+        }
+       var curVal = $(this).closest('div.item-qty').find('.qty').val();
+       var nextVal = parseInt(curVal)+1;
+       $(this).closest('div.item-qty').find('.qty').val(nextVal);
+       
+    });
+    var currency = {json_encode($currency_info)}, w;
+    {if count($product.skus) > 1 or $product.sku_type}
+        var sku_services = {json_encode($sku_services)};
+    {/if}
+    {if $product.sku_type}
+        var sku_features = {json_encode($sku_features_selectable)};
+    {/if}
+    var recent_products = $.cookie('recent_products');
+    products = ['{$product.id}'];
+    if (recent_products) {
+        var p = recent_products.split(',');
+        for (var i in p) {
+            if (p[i] != '{$product.id}' && i < 4) {
+                products.push(p[i]);
+            }
+        }
+    }
+    function print() {
+        w = window.open('', '', 'width=800,height=600,resizable=yes,scrollbars=yes,status=no');
+        w.document.write($('#print-version').html());
+        w.document.title = '[`Print`]';
+        return false;
+    }
+    $.cookie('recent_products', products.join(','), { expires: 7, path: '/'});
+</script>

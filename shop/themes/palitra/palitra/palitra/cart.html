@@ -1,0 +1,176 @@
+<script type="text/javascript" src="{$wa_theme_url}cart.js"></script>
+
+{if !$cart.count}
+
+    <h1>[`Shopping cart`]</h1>
+    <p>[`Your shopping cart is empty.`]</p>
+
+{else}
+
+<!--
+    <div class="sidebar right">
+        suggested place for product promotions
+    </div>
+-->
+
+    <div id="cart-content" class="content right">
+
+        <form method="post" onsubmit="yaCounter12600820.reachGoal('ZAPOLNAYET_INFO'); return true;">
+
+            <h1>[`Shopping cart`]</h1>
+<p class="cart_desc">Друзья! 25 декабря- последний день отправки заказов в регионы России. 
+Для сохранности заказанных вами материалов и соблюдения нормы температурного режима, все заказы будут приниматься на протяжении всех новогодних праздников! Обработка и формирование заказов на отправление будет осуществляться с началом работы транспортных и курьерских компаний. </p>
+            <!-- sixteen-column cart layout -->
+            <div class="cart">
+
+                {foreach $cart.items as $item}
+
+                    <!-- cart item -->
+                    <div class="cart-item" data-id="{$item.id}">
+                        <div class="item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '48x48', ['default' => "`$wa_theme_url`img/dummy48x48.png"])}</a>&nbsp;</div>
+                        <div class="item-name">
+                            <a href="{$wa->shop->productUrl($item.product)}" class="bold">{$item.product.name|escape}</a><br>
+                            {if $item.sku_name && $item.sku_name != $item.product.name}{$item.sku_name|escape}{/if}
+                        </div>
+                        <div class="item-qty nowrap"><span id="minus">&ndash;</span> <input type="text" name="quantity[{$item.id}]" value="{$item.quantity}" class="qty{if !empty($item.error)} error{/if}"><span id="plus">+</span></div>
+                        <div class="item-total nowrap">{shop_currency_html($item.full_price, true)} </div>
+                        <div class="item-remove"><a class="delete" href="#" title="[`Remove from cart`]"><i class="remove"></i></a></div>
+
+                        {if !empty($item.services)}
+                            <!-- services -->
+                            <div class="clear-both">
+                                <div class="col w1 item-thumb">&nbsp;</div>
+                                <div class="col w15 services">
+                                    {foreach $item.services as $service_id => $s}
+                                    <!-- one option -->
+                                    <div {if !empty($s.id)}data-id="{$s.id}"{/if}>
+                                        <label>
+                                            <input {if !empty($s.id)}checked{/if} type="checkbox" name="services[{$item.id}][]" value="{$service_id}">
+                                            {$s.name|escape}
+                                            {if $s.price && !isset($s.variants)}(<span>+{shop_currency_html($s.price, $s.currency)}</span>){/if}
+                                        </label>
+                                        {if isset($s.variants)}
+                                            <select name="service_variant[{$item.id}][{$service_id}]" {if empty($s.id)}disabled{/if}>
+                                                {foreach $s.variants as $variant_id => $v}
+                                                    <option {if $s.variant_id == $variant_id}selected{/if} value="{$variant_id}">
+                                                        {$v.name|escape} (+{shop_currency($v.price, $s.currency)})
+                                                    </option>
+                                                {/foreach}
+                                            </select>
+                                        {/if}
+                                    </div>
+                                    {/foreach}
+                                </div>
+                            </div>
+                        {/if}
+                    </div>
+                    {if !empty($item.error)}<script>alert({json_encode($item.error)});</script>{/if}
+                {/foreach}
+
+                <!-- discount coupon -->
+                <div class="coupon" {if !shopDiscounts::isEnabled('coupons') && !$discount}style="display:none"{/if}>
+                    <div class="cart-coupon">
+                        {if shopDiscounts::isEnabled('coupons')}
+                        [`Discount coupon (if you have one)`]:
+                        <input type="text" name="coupon_code" value="{$coupon_code|escape}"> <input type="submit"  value="[`Apply`]">
+                        {/if}
+                    </div>
+                    <div style="display: inline-block">[`Discount`]</div>
+                    <div class="cart-discount nowrap">&minus; {shop_currency_html($discount, true)}</div>
+                </div>
+
+                {if shopAffiliate::isEnabled() && $affiliate_bonus > 0}
+                <!-- affiliate bonus -->
+                <div class="row no-border">
+                    <div class="col w12 no-border">
+                        {sprintf('[`Your current affiliate bonus of %s points allows you to get an additonal discount of up to %s`]',
+                            $affiliate_bonus, shop_currency_html(shopAffiliate::convertBonus($affiliate_bonus)))}
+                        {if $use_affiliate}
+                        <a id="cancel-affiliate" href="#">[`Cancel`]</a>
+                        {else}
+                        <input type="submit" name="use_affiliate" value="[`Use bonus`]">
+                        {/if}
+                    </div>
+                    <div class="col w3 align-center affiliate-discount">&minus; {if $use_affiliate}{shop_currency_html(shopAffiliate::convertBonus($used_affiliate_bonus))}{else}0{/if}</div>
+                    <div class="col w1">&nbsp;</div>
+                </div>
+                {/if}
+
+                <div class="clear-both"></div>
+
+                <!-- TOTAL -->
+                <div class="total-cart">
+                    <div class="total-text">[`Total`]:&nbsp;&nbsp;</div>
+                    <div class="total-price">{shop_currency_html($cart.total, true)}</div>
+                    <input name="checkout" type="submit" value="[`Proceed to checkout`]" class="button large">
+                </div>
+
+                <!-- cross-selling -->
+                {$_related = $wa->shop->crossSelling($cart.items, 'product_id')}
+                {if $_related}
+                    <div class="bestsellers">
+                    
+                         <div class="h2">
+                             <div class="row">
+                                <div class="col-xs-12 col-md-4"> <h4><strong>[`Recommended!`]</strong> [`Customers who bought this product also purchased`]:</h4></div>
+                                <div class="col-xs-12 col-md-8">
+                                    <div class="sly_ctrl row">
+                                        <div class="col-xs-1">
+                                            <span class="prev"><i class="fa fa-arrow-left"></i></span>
+                                        </div>
+                                        <div class="col-xs-10 scrollbar">
+                                            <div class="handle">
+                                                <div class="mousearea"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <span class="next"><i class="fa fa-arrow-right"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        {include file="sly2.html" products=$_related}
+                    </div>
+                {/if}
+
+            </div>
+
+            <!-- plugin hook: 'frontend_cart' -->
+            {* @event frontend_cart.%plugin_id% *}
+            {foreach $frontend_cart as $_}{$_}{/foreach}
+
+        </form>
+
+    </div>
+
+{/if}
+{if $bestsellers}
+
+     <div class="h2"><div class="row">
+        <div class="col-xs-12 col-md-4">[`Bestsellers`]</div>
+        <div class="col-xs-12 col-md-8">
+            <div class="sly_ctrl row">
+                <div class="col-xs-1">
+                    <span class="prev"><i class="fa fa-arrow-left"></i></span>
+                </div>
+                <div class="col-xs-10 scrollbar">
+                    <div class="handle">
+                        <div class="mousearea"></div>
+                    </div>
+                </div>
+                <div class="col-xs-1">
+                    <span class="next"><i class="fa fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {include file="sly-carousel.html" products=$bestsellers}
+
+{else}
+    <p class="hint align-center">{sprintf('[`Product set with the ID <strong>%s</strong> either does not exist or does not contain any product. Add some products into a product set with the specified ID to make these products featured here.`]','bestsellers')}</p>
+    
+{/if}

@@ -1,0 +1,81 @@
+{if !empty($filters[3]) || !empty($filters[4]) || !empty($filters[6]) || !empty($filters[5]) || !empty($filters[37]) || !empty($filters['price'])}
+<!-- filtering by product features -->
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<link href="{$wa_static_url}wa-content/css/jquery-ui/base/jquery.ui.slider.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-ui/jquery.ui.core.min.js?v{$wa->version(true)}"></script>
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-ui/jquery.ui.widget.min.js?v{$wa->version(true)}"></script>
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-ui/jquery.ui.mouse.min.js?v{$wa->version(true)}"></script>
+<script type="text/javascript" src="{$wa_static_url}wa-content/js/jquery-ui/jquery.ui.slider.min.js?v{$wa->version(true)}"></script>
+
+<div class="filters{if !empty($theme_settings.ajax_filters)} ajax{/if}">
+    <form method="get" action="{$wa->currentUrl(0,1)}" data-loading="{$wa_parent_theme_url}img/loading16.gif">
+    {if !empty($filters[3])}
+        <div class="filter-param">
+            <h5>{$filters[3].name}:</h5>
+            {foreach $filters[3].values as $v_id => $v}
+                <label>
+                    <input type="checkbox" name="{$filter.code}[]" {if in_array($v_id, (array)$wa->get($filter.code, array()))}checked{/if} value="{$v_id}"> {$v}
+                </label>
+            {/foreach}
+        </div>
+    {/if}
+    {if !empty($filters[4]) || !empty($filters[6]) }
+        <div class="filter-param">
+            {if !empty($filters[4])}
+                <h5>{$filters[4].name}:</h5>
+                {foreach $filters[4].values as $v_id => $v}
+                    <label>
+                        <input type="checkbox" name="{$filter.code}[]" {if in_array($v_id, (array)$wa->get($filter.code, array()))}checked{/if} value="{$v_id}"> {$v}
+                    </label>
+                {/foreach}
+            {/if}
+            {if !empty($filters[6])}
+            <h5 style="margin-top: 40px;">{$filters[6].name}:</h5>
+            {foreach $filters[6].values as $v_id => $v}
+                <label>
+                    <input type="checkbox" name="{$filter.code}[]" {if in_array($v_id, (array)$wa->get($filter.code, array()))}checked{/if} value="{$v_id}"> {$v}
+                </label>
+            {/foreach}
+        </div>  
+        {/if}
+        {/if}
+        {if !empty($filters[5])}
+        <div class="filter-param">
+            <h5>{$filters[5].name}:</h5>
+            {foreach $filters[5].values as $v_id => $v}
+                <label>
+                    <input type="checkbox" name="{$filter.code}[]" {if in_array($v_id, (array)$wa->get($filter.code, array()))}checked{/if} value="{$v_id}"> {$v}
+                </label>
+            {/foreach}
+        </div>
+        {/if}
+        {if !empty($filters[37]) || !empty($filters['price'])}
+        <div class="filter-slideParam">
+            {if !empty($filters[37])}
+            <div class="slider">
+            {$_v = $wa->get($filters[37].code)}
+            <h5>{$filters[37].name}:</h5>            
+                [`from`] <input type="text" class="min" name="{$filters[37].code}[min]" placeholder="{$filters[37].min}" {if !empty($_v.min)}value="{$_v.min}"{/if}>
+                [`to`] <input type="text" class="max" name="{$filters[37].code}[max]" placeholder="{$filters[37].max}" {if !empty($_v.max)}value="{$_v.max}"{/if}>
+                {if !empty($filters[37].unit)}
+                    {$filters[37].unit.title}
+                    {if $filters[37].unit.value != $filters[37].base_unit.value}<input type="hidden" name="{$filters[37].code}[unit]" value="{$filters[37].unit.value}">{/if}
+                {/if}
+            </div>
+            {/if}
+            {if !empty($filters['price'])}
+                    <div class="slider">
+                    {$c = $wa->shop->currency(true)}
+                    <h5>По цене:</h5>                    
+                    [`from`] <input type="text" class="min" name="price_min" {if $wa->get('price_min')}value="{(int)$wa->get('price_min')}"{/if} placeholder="{ceil($filters["price"].min)}">
+                    [`to`] <input type="text" class="max" name="price_max" {if $wa->get('price_max')}value="{(int)$wa->get('price_max')}"{/if} placeholder="{ceil($filters["price"].max)}"> {$c.sign}    
+                    </div> 
+                {/if}
+        </div>
+        {/if}
+        {if $wa->get('sort')}<input type="hidden" name="sort" value="{$wa->get('sort')|escape}">{/if}
+        {if $wa->get('order')}<input type="hidden" name="order" value="{$wa->get('order')|escape}">{/if}
+        <input class="filter-btn" type="submit" value="показать">
+    </form>
+</div>
+{/if}

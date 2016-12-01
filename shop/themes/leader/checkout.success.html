@@ -1,0 +1,41 @@
+{$order_id = str_replace("#","",$order.id)}
+<script type="text/javascript">
+rrApiOnReady.push(function() {
+    try {
+        rrApi.order({
+            transaction: {$order_id},
+            items: [
+                {foreach $order.items as  $item => $value}
+                    { id: {$value.product_id}, qnt: {$value.quantity},  price: {$value.price}}
+                    {if ($value != end($order.items))}
+                    ,
+                    {/if}
+                {/foreach} 
+            ]
+        });
+    } catch(e) {}
+})
+</script>
+<style>
+    .checkout-header { display: none; }
+</style>
+
+<div class="checkout-result success">
+    <h1>[`Thank you!`]</h1>
+    <p>[`We successfully accepted your order, and will contact you asap.`]<br />
+    [`Your order number is `] <strong>{$order.id}</strong>.</p>
+    
+    {if !empty($payment)}
+        <div class="plugin">
+            {$payment}
+        </div>
+    {/if}
+
+    {if !empty($payment_success)}
+        <span class="highlighted">[`Your payment has been successfully accepted. We will process your order and contact you shortly.`]</span>
+    {/if}
+    
+    <p class="back">
+        &larr; <a href="{$wa_app_url}">[`Back to the store`]</a>
+    </p>
+</div>

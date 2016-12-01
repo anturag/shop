@@ -1,0 +1,25 @@
+.main_text ul:not([class]) li:before{
+    content: "¤ ";
+    color: #df001b;
+}/* 16x16 Icons */
+
+i.icon16 {
+	background-image: url(img/icon16.png); background-repeat: no-repeat;
+	height: 16px; width: 16px; display: inline-block; text-indent: -9999px; text-decoration: none!important;
+}
+* i.icon16 { text-decoration: none!important; vertical-align: top; margin: 0.2em 0.25em 0 0; }
+.icon16.loading { background-image: url(img/loading16.gif); }
+.icon16.user { background-position: 0 0; }
+.icon16.exit { background-position: -32px 0; }
+.icon16.access { background-position: -48px 0; }
+.icon16.search { background-position: -112px 0; }
+.icon16.phone { background-position: -128px 0; }
+.icon16.email { background-position: -142px 0; }
+.icon16.color { background-position: -496px 0; }
+
+/* 10x10 Icons */
+
+i.icon10 { background-repeat: no-repeat; height: 10px; width: 10px; display: inline-block; text-indent: -9999px; text-decoration: none!important; }
+* i.icon10 { text-decoration: none!important; vertical-align: top; margin: 0.2em 0.1em 0 0; }
+.icon10.darr { background-image: url(img/darr.png); }
+.open_menu { cursor:pointer;}

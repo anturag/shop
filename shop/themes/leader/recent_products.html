@@ -1,0 +1,10 @@
+{if empty($theme_settings.hide_recent)}
+    <!-- "recent" products list -->
+    {$recent_products = waRequest::cookie('recent_products')}
+    {if $recent_products}
+        <span class="title colored nedavnosmotrel">[`Recent products list`]</span>
+        <div class="recent-products special-offers">
+            {include file="list-thumbs-mini.html" products=$wa->shop->products("/id/`$recent_products`") no_paging=1}
+        </div>
+    {/if}
+{/if}

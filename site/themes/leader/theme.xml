@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE theme PUBLIC "wa-app-theme" "http://www.webasyst.com/wa-content/xml/wa-app-theme.dtd">
+<theme id="leader" system="0" vendor="85050" author="Vlad" app="site" version="2.6.3">
+  <name locale="en_US">Leader</name>
+  <name locale="ru_RU">Лидер</name>
+  <description locale="en_US">Universal adaptive design theme family.</description>
+  <description locale="ru_RU">Семейство адаптивных тем дизайна.</description>
+  <files>
+    <file path="content.html" custom="0">
+      <description locale="en_US">Main layout for the app content</description>
+      <description locale="ru_RU">Основной вывод приложения</description>
+    </file>
+    <file path="core.css" custom="0">
+      <description locale="en_US">Core CSS of the Absolute theme family</description>
+      <description locale="ru_RU">Основной файл CSS-стилей семейства тем дизайна Абсолют</description>
+    </file>
+    <file path="error.html" custom="0">
+      <description locale="en_US">404 and other errors</description>
+      <description locale="ru_RU">404 и другие ошибки</description>
+    </file>
+    <file path="footer.html" custom="0">
+      <description locale="en_US">App specific footer content</description>
+      <description locale="ru_RU">Содержимое футера приложения</description>
+    </file>
+    <file path="footer_contacts.html" custom="0">
+      <description locale="en_US">Contacts and social buttons</description>
+      <description locale="ru_RU">Контакты и кнопки социальных сетей</description>
+    </file>
+    <file path="forgotpassword.html" custom="0">
+      <description locale="en_US">Forgot password page</description>
+      <description locale="ru_RU">Страница сброса пароля</description>
+    </file>
+    <file path="head.html" custom="0">
+      <description locale="en_US">App's &lt;head&gt; instructions</description>
+      <description locale="ru_RU">Блок &lt;head&gt; приложения</description>
+    </file>
+    <file path="index.html" custom="0" modified="1">
+      <description locale="en_US">Core layout of the Absolute theme family</description>
+      <description locale="ru_RU"></description>
+    </file>
+    <file path="login.html" custom="0">
+      <description locale="en_US">Login page</description>
+      <description locale="ru_RU">Страница входа для пользователей</description>
+    </file>
+    <file path="main-nav.html" custom="0">
+      <description locale="en_US">Main navigation menu</description>
+      <description locale="ru_RU">Главное меню навигации</description>
+    </file>
+    <file path="navigation.html" custom="0">
+      <description locale="en_US">Internal storefront navigation</description>
+      <description locale="ru_RU">Внутренняя навигация по витрине магазина</description>
+    </file>
+    <file path="page.html" custom="0">
+      <description locale="en_US">Static page content and navigation</description>
+      <description locale="ru_RU">Содержимое открытой страницы и навигация по страницам</description>
+    </file>
+    <file path="sidebar.html" custom="0">
+      <description locale="en_US">Left sidebar</description>
+      <description locale="ru_RU">Левый сайдбар</description>
+    </file>
+    <file path="sidebar_app.html" custom="0">
+      <description locale="en_US">Pages menu in sidebar</description>
+      <description locale="ru_RU">Меню "Страницы" в сайдбаре</description>
+    </file>
+    <file path="signup.html" custom="0">
+      <description locale="en_US">Sign up page</description>
+      <description locale="ru_RU">Страница регистрации пользователей</description>
+    </file>
+    <file path="social.html" custom="0">
+      <description locale="en_US">Social buttons</description>
+      <description locale="ru_RU">Кнопки социальных сетей</description>
+    </file>
+    <file path="theme.js" custom="0">
+      <description locale="en_US">JS</description>
+      <description locale="ru_RU">JS</description>
+    </file>
+  </files>
+  <about locale="en_US">
+&lt;p&gt;&lt;b&gt;Leader&lt;/b&gt; is a universal adaptive design theme family for Webasyst apps. The parent theme of the family, which includes the basic set of CSS rules and the common layout template index.html, is the Leader theme for the Site application. All Leader design themes used in other applications link common CSS and index.html layout file from the main theme.&lt;/p&gt;
+
+    </about>
+  <about locale="ru_RU">
+&lt;p&gt;&lt;b&gt;Лидер&lt;/b&gt; — это универсальное семейство адаптивных тем дизайна для приложений фреймворка. Родительской темой семейства, включающей в себя базовый набор CSS-стилей и общий макет дизайна index.html, является тема Лидер для приложения «Сайт». Все темы дизайна Лидер для других приложений используют базовый CSS и index.html из родительской темы.&lt;/p&gt;
+
+    </about>
+  <settings>
+    <setting var="color_scheme" control_type="select">
+      <value>default</value>
+      <name locale="en_US">Color scheme</name>
+      <name locale="ru_RU">Цветовая гамма</name>
+      <options>
+        <option value="default">
+          <name locale="en_US">default</name>
+          <name locale="ru_RU">по умолчанию</name>
+        </option>
+        <option value="purple">
+          <name locale="en_US">Purple</name>
+          <name locale="ru_RU">Фиолетовая</name>
+        </option>
+        <option value="green">
+          <name locale="en_US">Green</name>
+          <name locale="ru_RU">Зеленая</name>
+        </option>
+        <option value="blue">
+          <name locale="en_US">Blue</name>
+          <name locale="ru_RU">Синяя</name>
+        </option>
+        <option value="yellow">
+          <name locale="en_US">Yellow</name>
+          <name locale="ru_RU">Желтая</name>
+        </option>
+        <option value="pink">
+          <name locale="en_US">Pink</name>
+          <name locale="ru_RU">Розовая</name>
+        </option>
+        <option value="orange">
+          <name locale="en_US">Orange</name>
+          <name locale="ru_RU">Оранжевая</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="logo_font" control_type="select">
+      <value>Deusex</value>
+      <name locale="en_US">Logo font</name>
+      <name locale="ru_RU">Шрифт логотипа</name>
+      <options>
+        <option value="Deusex">
+          <name locale="en_US">Deusex</name>
+        </option>
+        <option value="Sandbox">
+          <name locale="en_US">Sandbox</name>
+        </option>
+        <option value="Magistral">
+          <name locale="en_US">Magistral</name>
+        </option>
+        <option value="Granapadano">
+          <name locale="en_US">Granapadano</name>
+        </option>
+        <option value="Taurus">
+          <name locale="en_US">Taurus</name>
+        </option>
+        <option value="Lucida">
+          <name locale="en_US">Lucida</name>
+        </option>
+        <option value="Muse">
+          <name locale="en_US">Muse</name>
+        </option>
+        <option value="Kamelia">
+          <name locale="en_US">Kamelia</name>
+        </option>
+        <option value="Artist">
+          <name locale="en_US">Artist</name>
+        </option>
+        <option value="Arnold">
+          <name locale="en_US">Arnold</name>
+        </option>
+        <option value="Lobster">
+          <name locale="en_US">Lobster</name>
+        </option>
+        <option value="Julia">
+          <name locale="en_US">Julia</name>
+        </option>
+        <option value="Beaumarchais">
+          <name locale="en_US">Beaumarchais</name>
+        </option>
+        <option value="Appetite">
+          <name locale="en_US">Appetite</name>
+        </option>
+        <option value="Auction">
+          <name locale="en_US">Auction</name>
+        </option>
+        <option value="Doux">
+          <name locale="en_US">Doux</name>
+        </option>
+        <option value="Nautilus">
+          <name locale="en_US">Nautilus</name>
+        </option>
+        <option value="Nord">
+          <name locale="en_US">Nord</name>
+        </option>
+        <option value="Intro">
+          <name locale="en_US">Intro</name>
+        </option>
+        <option value="Geneva">
+          <name locale="en_US">Geneva</name>
+        </option>
+        <option value="">
+          <name locale="en_US">none</name>
+          <name locale="ru_RU">не использовать</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="logo_font_size" control_type="text">
+      <value>24</value>
+      <name locale="en_US">Logo font size (px)</name>
+      <name locale="ru_RU">Размер шрифта логотипа (px)</name>
+    </setting>
+    <setting var="logo_margin_top" control_type="text">
+      <value>0</value>
+      <name locale="en_US">Top margin for the logo, px</name>
+      <name locale="ru_RU">Вертикальный отступ логотипа, px</name>
+    </setting>
+    <setting var="logo_text" control_type="text">
+      <value/>
+      <name locale="en_US">Logo text</name>
+      <name locale="ru_RU">Текст логотипа</name>
+    </setting>
+    <setting var="logo_color" control_type="color">
+      <value/>
+      <name locale="en_US">
+                Logo color
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;
+                Hex or RGB value. For example: #000000, rgb(0,0,0)
+                &lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Цвет логотипа
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;
+                Шестнадцатеричное значение или RGB. Например: #000000, rgb(0,0,0)
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="logo_img" control_type="image">
+      <value/>
+      <filename>img/logo.*</filename>
+      <name locale="en_US">Logo</name>
+      <name locale="ru_RU">Логотип</name>
+    </setting>
+    <setting var="logo_img_width" control_type="text">
+      <value>100</value>
+      <name locale="en_US">Logo image width (px)</name>
+      <name locale="ru_RU">Ширина изображения логотипа (px)</name>
+    </setting>
+    <setting var="slogan" control_type="text">
+      <value/>
+      <name locale="en_US">Slogan</name>
+      <name locale="ru_RU">Слоган</name>
+    </setting>
+    <setting var="phone_title" control_type="text">
+      <value/>
+      <name locale="en_US">Phone number title</name>
+      <name locale="ru_RU">Текст к телефонному номеру</name>
+    </setting>
+    <setting var="schedule" control_type="text">
+      <value/>
+      <name locale="en_US">Schedule</name>
+      <name locale="ru_RU">График работы</name>
+    </setting>
+    <setting var="pages_app" control_type="radio">
+      <value>site</value>
+      <name locale="en_US">Show pages of the app:</name>
+      <name locale="ru_RU">Использовать в главном меню страницы приложения:</name>
+      <options>
+        <option value="site">
+          <name locale="en_US">Site</name>
+          <name locale="ru_RU">Сайт</name>
+        </option>
+        <option value="shop">
+          <name locale="en_US">Shop</name>
+          <name locale="ru_RU">Магазин</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="img_url" control_type="text">
+      <value/>
+      <name locale="en_US">
+                URL prefix for images
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;
+                URL for uploaded images folder (categories icons, etc.). For example: /wa-data/public/site/img
+                &lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Префикс URL для изображений
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;
+                URL папки загруженных изображений (иконки категорий и т.д.), например: /wa-data/public/site/img
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="use_categories_icons" control_type="checkbox">
+      <value/>
+      <name locale="en_US">
+                Use categories icons
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                If you have a set of icons for top-level categories, you can upload them into the image folder.
+                File names must match the id's of categories displayed in the "Storefront link" on the "Products" tab.
+                Allowed file extension is ".png".
+                &lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Использовать иконки категорий
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                Если у вас есть набор иконок для категорий верхнего уровня, вы можете загрузить их в папку с изображениями.
+                Названия файлов должны соответствовать идентификатору в пункте «Ссылка на витрину» в настройках категории. Допускаются файлы с расширением «.png».
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="page_nav_mode" control_type="radio">
+      <value>dropdown</value>
+      <name locale="en_US">Navigation menu</name>
+      <name locale="ru_RU">Меню навигации</name>
+      <options>
+        <option value="dropdown">
+          <name locale="en_US">Drop down</name>
+          <name locale="ru_RU">Выпадающее</name>
+          <description locale="en_US">Classic drop down menu</description>
+          <description locale="ru_RU">Классическое выпадающее меню</description>
+        </option>
+        <option value="full">
+          <name locale="en_US">Full</name>
+          <name locale="ru_RU">Полное</name>
+          <description locale="en_US">Full list of categories</description>
+          <description locale="ru_RU">Полный список категорий в одном меню</description>
+        </option>
+        <option value="accordion">
+          <name locale="en_US">Accordion</name>
+          <name locale="ru_RU">Раскрывающееся</name>
+          <description locale="en_US">Great for multi-level menus with large number of elements</description>
+          <description locale="ru_RU">Рекомендуется для многоуровневых навигационных меню с большим количеством элементов-ссылок</description>
+        </option>
+      </options>
+    </setting>
+    <setting var="hide_plugin_category_headers" control_type="checkbox">
+      <value/>
+      <name locale="en_US">
+                Hide plugin headers in the categories menu
+            </name>
+      <name locale="ru_RU">
+                Скрыть заголовки плагинов в меню категорий в сайдбаре
+            </name>
+    </setting>
+    <setting var="min_width" control_type="text">
+      <value>800</value>
+      <name locale="en_US">Minimal page width</name>
+      <name locale="ru_RU">Минимальная ширина страницы</name>
+    </setting>
+    <setting var="max_width" control_type="text">
+      <value>1380</value>
+      <name locale="en_US">Maximal page width</name>
+      <name locale="ru_RU">Максимальная ширина страницы</name>
+    </setting>
+    <setting var="welcome_header" control_type="text">
+      <value/>
+      <name locale="en_US">
+                Header for storefront
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;Content of &amp;lt;H3&amp;gt; tag. For example: "Welcome!".&lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Заголовок витрины магазина
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;Строка внутри тега &amp;lt;H3&amp;gt;. Например, "Добро пожаловать!".&lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="welcome_text" control_type="text">
+      <value>&lt;p&gt; Вы в постоянном поиске новых идей и материалов, цветов и фактур? Вы любите и умеете создавать на ногтях произведения искусства и невообразимые принты? Вы – мастер или любитель, совершенствующий свои навыки.   &lt;/p&gt; &lt;p&gt; В интернет-магазине профессиональной косметики «Антураж» вы найдете все самое необходимое для того, чтобы следить за собой было легко и приятно, а образы, создаваемыми вами для себя и клиентов, были необыкновенными.  &lt;/p&gt; &lt;p&gt; В ассортименте нашего магазина сотни оттенков цветных гель-лаков, супер стойкие лаки для ногтей, материалы для ухода за волосами и перманентного макияжа, средства для восковой и сахарной депиляции, материалы для наращивания ногтей и многое-многое другого. В наличии более двух тысяч товаров для ногтей, волос, депиляции и перманентного макияжа.   &lt;/p&gt; &lt;p&gt; Специалисты интернет-магазина «Антураж»  всегда с радостью придут на помощь: расскажут, покажут, обязательно порекомендуют именно то, что вы так долго искали … И даже сделают приятную скидку. &lt;/p&gt; &lt;p&gt;Преимущества интернет-магазина «Антураж»: &lt;ul&gt; &lt;li&gt;привлекательные цены &lt;/li&gt;  &lt;li&gt;профессиональная консультация &lt;/li&gt;  &lt;li&gt;только качественная продукция от надежных поставщиков&lt;/li&gt;  &lt;li&gt;все товары в наличии&lt;/li&gt;  &lt;li&gt; доставка в любой город России &lt;/li&gt;  &lt;li&gt;удобный самовывоз в Санкт-Петербурге&lt;/li&gt;  &lt;li&gt;пункты выдачи в десятках городах России &lt;/li&gt;  &lt;li&gt;скидки и регулярные акции&lt;/li&gt;  &lt;li&gt;удобные способы оплаты&lt;/li&gt;  &lt;li&gt;более 20 тысяч клиентов за 10 лет работы!&lt;/li&gt; &lt;/ul&gt;&lt;/p&gt;</value>
+      <name locale="en_US">
+                General welcome text for storefront
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;Short description of your store. HTML tags are available.&lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Текст приветствия для витрины магазина
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;Краткое описание вашего магазина. Допускаются HTML-теги.&lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="homepage_slider_mode" control_type="radio">
+      <value>photos</value>
+      <name locale="ru_RU">Слайдер на витрине интернет-магазина</name>
+      <name locale="en_US">Storefront homepage slider</name>
+      <options>
+        <option value="photos">
+          <name locale="ru_RU">Фотографии из приложения «Фото»</name>
+          <name locale="en_US">Latest photos from Photos apps</name>
+          <description locale="ru_RU">В слайдере будут показаны последние 10 фотографий, загруженные в приложении «Фото». Вы можете поменять условие выбора фотографий для слайдера. Приложение «Фото» должно быть установлено.</description>
+          <description locale="en_US">Last 10 uploaded photos will be fetched from Photos app and displayed on the slider. Photos app must be installed for this setting to work.</description>
+        </option>
+        <option value="products_last_photo_as_background">
+          <name locale="ru_RU">Товары-бестселлеры: последняя фото в качестве фона</name>
+          <name locale="en_US">Best-selling products: last photo as a background</name>
+          <description locale="ru_RU">В слайдере также будут показаны товары из списка с идентификатором bestsellers, но в качестве изображения будет взята не основная, а последняя по счету фотография товара, причем отображаться она будет как фоновое изображение по площади всего слайдера.</description>
+          <description locale="en_US">Products will be also taken from a product set with “bestsellers” ID, but instead of product primary image the last image from the product gallery will be displayed as a background of entire slider area.</description>
+        </option>
+        <option value="products">
+          <name locale="ru_RU">Товары-бестселлеры</name>
+          <name locale="en_US">Best-selling products</name>
+          <description locale="ru_RU">В слайдере будут показаны товары из списка с идентификатором bestsellers. Заменить идентификатор на любой другой можно в шаблоне дизайна home.html.</description>
+          <description locale="en_US">Products will be taken from a product set with “bestsellers” ID. Replace bestsellers with any other product set ID in home.html template.</description>
+        </option>
+      </options>
+    </setting>
+    <setting var="photos_criteria" control_type="text">
+      <value>album/1</value>
+      <name locale="ru_RU">
+                Условие выбора фотографий для слайдера
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                Поменяйте условие выбора фотографий для слайдера на любое другое, например:&lt;br&gt;
+                'album/1' - фото из определенного альбома, 'tag/shop' - с определенным тегом и т.д.).&lt;br&gt;
+                Подробности см. в документации к приложению Фото.
+                &lt;/div&gt;
+                
+            </name>
+      <name locale="en_US">
+                Photo fetching criteria
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                Change default search criteria to any you like, e.g. 'album/1', 'tag/shop'.&lt;br&gt;
+                See Photos app manual for details.
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="sslider_mode" control_type="text">
+      <value>random</value>
+      <name locale="ru_RU">
+                Эффекты слайдера для главного баннера
+                
+                &lt;div class="hint" style="margin-right:-600px; padding:5px 0 5px;"&gt;
+                Доступны следующие эффекты:
+                random, simpleFade, curtainTopLeft, curtainTopRight, curtainBottomLeft, curtainBottomRight, curtainSliceLeft, curtainSliceRight, blindCurtainTopLeft, blindCurtainTopRight, blindCurtainBottomLeft, blindCurtainBottomRight, blindCurtainSliceBottom, blindCurtainSliceTop, stampede, mosaic, mosaicReverse, mosaicRandom, mosaicSpiral, mosaicSpiralReverse, topLeftBottomRight, bottomRightTopLeft, bottomLeftTopRight, bottomLeftTopRight, scrollLeft, scrollRight, scrollHorz, scrollBottom, scrollTop
+                &lt;/div&gt;
+                &lt;div class="hint" style="margin-right:-600px; padding:5px 0 5px;"&gt;
+                Вы можете выбрать несколько эффектов, просто разделяя их запятыми, например: topLeftBottomRight, curtainTopLeft, blindCurtainTopLeft
+                &lt;/div&gt;
+                
+            </name>
+      <name locale="en_US">
+                Slider effects
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                Available effects:
+                random, simpleFade, curtainTopLeft, curtainTopRight, curtainBottomLeft, curtainBottomRight, curtainSliceLeft, curtainSliceRight, blindCurtainTopLeft, blindCurtainTopRight, blindCurtainBottomLeft, blindCurtainBottomRight, blindCurtainSliceBottom, blindCurtainSliceTop, stampede, mosaic, mosaicReverse, mosaicRandom, mosaicSpiral, mosaicSpiralReverse, topLeftBottomRight, bottomRightTopLeft, bottomLeftTopRight, bottomLeftTopRight, scrollLeft, scrollRight, scrollHorz, scrollBottom, scrollTop
+                &lt;/div&gt;
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                You can also use more than one effect, just separate them with commas: topLeftBottomRight, curtainTopLeft, blindCurtainTopLeft
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="banner_href" control_type="text">
+      <value/>
+      <name locale="en_US">Banner link</name>
+      <name locale="ru_RU">URL ссылки с баннера</name>
+    </setting>
+    <setting var="promo_block_type" control_type="radio">
+      <value>slider</value>
+      <name locale="en_US">Type of the "Special offers" block</name>
+      <name locale="ru_RU">Вид блока "Специальные предложения"</name>
+      <options>
+        <option value="slider">
+          <name locale="en_US">Slider</name>
+          <name locale="ru_RU">Слайдер</name>
+        </option>
+        <option value="normal">
+          <name locale="en_US">Line</name>
+          <name locale="ru_RU">Лента</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="bestsellers_block_type" control_type="radio">
+      <value>normal</value>
+      <name locale="en_US">Type of the "Bestsellers" block</name>
+      <name locale="ru_RU">Вид блока "Хиты продаж"</name>
+      <options>
+        <option value="slider">
+          <name locale="en_US">Slider</name>
+          <name locale="ru_RU">Слайдер</name>
+        </option>
+        <option value="normal">
+          <name locale="en_US">Line</name>
+          <name locale="ru_RU">Лента</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="product_thumbs_name_height" control_type="text">
+      <value/>
+      <name locale="en_US">The number of rows in the product name in the list</name>
+      <name locale="ru_RU">
+                Число строк в названия товара в списке
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                Допускаются дробные значения (например, 2.5). Оставьте это поле пустым для автоматического определения высоты.
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="product_thumbs_desc_height" control_type="text">
+      <value/>
+      <name locale="en_US">The number of rows in the product short description in the list</name>
+      <name locale="ru_RU">
+                Число строк в кратком описании товара в списке
+                
+                &lt;div class="hint" style="margin-right:-500px; padding:5px 0 5px;"&gt;
+                Допускаются дробные значения (например, 2.5). Оставьте это поле пустым для автоматического определения высоты.
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="facebook_url" control_type="text">
+      <value>http://www.facebook.com/</value>
+      <name locale="en_US">Facebook Page URL</name>
+      <name locale="ru_RU">Адрес страницы в Фейсбуке</name>
+    </setting>
+    <setting var="twitter_url" control_type="text">
+      <value>http://twitter.com/</value>
+      <name locale="en_US">Twitter URL</name>
+      <name locale="ru_RU">Адрес страницы на Твиттере</name>
+    </setting>
+    <setting var="gp_url" control_type="text">
+      <value>http://plus.google.com/</value>
+      <name locale="en_US">Google+ URL</name>
+      <name locale="ru_RU">Адрес страницы на Google+</name>
+    </setting>
+    <setting var="lj_url" control_type="text">
+      <value>http://www.livejournal.com/</value>
+      <name locale="en_US">Livejornal URL</name>
+      <name locale="ru_RU">Адрес страницы на Livejornal</name>
+    </setting>
+    <setting var="pinterest_url" control_type="text">
+      <value>https://www.pinterest.com/</value>
+      <name locale="en_US">Pinterest URL</name>
+      <name locale="ru_RU">Адрес страницы на Pinterest</name>
+    </setting>
+    <setting var="youtube_url" control_type="text">
+      <value>http://www.youtube.com/</value>
+      <name locale="en_US">Youtube URL</name>
+      <name locale="ru_RU">Адрес страницы Youtube</name>
+    </setting>
+    <setting var="instagram_url" control_type="text">
+      <value>http://instagram.com/</value>
+      <name locale="en_US">Instagram URL</name>
+      <name locale="ru_RU">Адрес страницы Instagram</name>
+    </setting>
+    <setting var="vk_url" control_type="text">
+      <value>http://vk.com/</value>
+      <name locale="en_US">VK URL</name>
+      <name locale="ru_RU">Адрес страницы Вконтакте</name>
+    </setting>
+    <setting var="ok_url" control_type="text">
+      <value>http://ok.ru/</value>
+      <name locale="en_US">OK URL</name>
+      <name locale="ru_RU">Адрес страницы Одноклассники</name>
+    </setting>
+    <setting var="tumblr_url" control_type="text">
+      <value>https://www.tumblr.com/</value>
+      <name locale="en_US">Tumblr URL</name>
+      <name locale="ru_RU">Адрес страницы Tumblr</name>
+    </setting>
+    <setting var="vd_url" control_type="text">
+      <value>http://vkrugudruzei.ru/</value>
+      <name locale="en_US">VD URL</name>
+      <name locale="ru_RU">Адрес страницы Vkrugudruzei</name>
+    </setting>
+    <setting var="mm_url" control_type="text">
+      <value>https://my.mail.ru/</value>
+      <name locale="en_US">MM URL</name>
+      <name locale="ru_RU">Адрес страницы Мой Мир</name>
+    </setting>
+    <setting var="counter_code" control_type="text">
+      <value/>
+      <name locale="en_US">Counter code</name>
+      <name locale="ru_RU">Код счетчика посещений</name>
+    </setting>
+    <setting var="additional_styles" control_type="text">
+      <value/>
+      <name locale="en_US">Additional styles</name>
+      <name locale="ru_RU">Дополнительные стили</name>
+    </setting>
+    <setting var="hide_new_photos" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide "New photos" block</name>
+      <name locale="ru_RU">Скрыть блок "Новые фото"</name>
+    </setting>
+    <setting var="hide_sidebar" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide left sidebar</name>
+      <name locale="ru_RU">Скрыть левую панель</name>
+    </setting>
+    <setting var="hide_social" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide "social" buttons</name>
+      <name locale="ru_RU">Скрыть кнопки социальных сетей</name>
+    </setting>
+    <setting var="hide_categories_count" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide counts in categories list</name>
+      <name locale="ru_RU">Скрыть количество товаров в списке категорий</name>
+    </setting>
+    <setting var="hide_recent" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide "recent" products list</name>
+      <name locale="ru_RU">Скрыть блок "Вы недавно смотрели"</name>
+    </setting>
+    <setting var="hide_write_review" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide "Write a review" link</name>
+      <name locale="ru_RU">Скрыть ссылку "написать отзыв" о товаре</name>
+    </setting>
+    <setting var="hide_reviews" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide reviews</name>
+      <name locale="ru_RU">Скрыть вкладку "отзывы о товаре"</name>
+    </setting>
+    <setting var="hide_compare" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Hide "Add to comparison table" link</name>
+      <name locale="ru_RU">Скрыть ссылку "Добавить к сравнению"</name>
+    </setting>
+    <setting var="hide_checkout_layout" control_type="checkbox">
+      <value>1</value>
+      <name locale="en_US">Hide checkout layout</name>
+      <name locale="ru_RU">Скрыть заголовки при оформлении заказа</name>
+    </setting>
+    <setting var="shop_service_ads" control_type="text">
+      <value/>
+      <name locale="en_US">
+                Service ad for the storefront
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;
+                For example, information about the temporary suspension of sales
+                &lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Сервисное объявление для магазина
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;
+                Например, информация о временной приостановке продаж
+                &lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="product_in_new_tab" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Open product page in new tab</name>
+      <name locale="ru_RU">Открывать товары в новой вкладке</name>
+    </setting>
+    <setting var="filters_place" control_type="radio">
+      <value>page</value>
+      <name locale="en_US">Location of the filter unit</name>
+      <name locale="ru_RU">Расположение блока фильтров</name>
+      <options>
+        <option value="sidebar">
+          <name locale="en_US">Sidebar</name>
+          <name locale="ru_RU">Левая панель</name>
+        </option>
+        <option value="page">
+          <name locale="en_US">Category</name>
+          <name locale="ru_RU">Страница категории</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="ajax_filters" control_type="checkbox">
+      <value>1</value>
+      <name locale="en_US">AJAX-enabled product by-feature filtering</name>
+      <name locale="ru_RU">AJAX-фильтры товаров по характеристикам</name>
+    </setting>
+    <setting var="force_cart_dialog" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Force "add to cart" dialog</name>
+      <name locale="ru_RU">Всегда показывать диалог выбора при добавлении товара в корзину</name>
+    </setting>
+    <setting var="refresh_cart" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Refresh cart automatically</name>
+      <name locale="ru_RU">Обновлять корзину при нажатии кнопки "назад" в браузере</name>
+    </setting>
+    <setting var="pagination" control_type="select">
+      <value>paging</value>
+      <name locale="en_US">Long lists</name>
+      <name locale="ru_RU">Длинные списки</name>
+      <options>
+        <option value="lazyloading">
+          <name locale="en_US">Auto load on scroll (lazy loading)</name>
+          <name locale="ru_RU">Автоматическая подгрузка при скролле (lazy loading)</name>
+        </option>
+        <option value="paging">
+          <name locale="en_US">Paginated lists (1 2 3 4 ...)</name>
+          <name locale="ru_RU">Постраничная навигация (1 2 3 4 ...)</name>
+        </option>
+      </options>
+    </setting>
+    <setting var="text_for_print" control_type="text">
+      <value/>
+      <name locale="en_US">
+                Additional text for "Printable version"
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;Address or whatever&lt;/div&gt;
+                
+            </name>
+      <name locale="ru_RU">
+                Дополнительный текст для сраницы печати
+                
+                &lt;div class="hint" style="margin-right:-20px; padding:5px 0 5px;"&gt;Например, адрес компании&lt;/div&gt;
+                
+            </name>
+    </setting>
+    <setting var="copy_protect" control_type="checkbox">
+      <value/>
+      <name locale="en_US">Copy protection</name>
+      <name locale="ru_RU">Защита от копирования</name>
+    </setting>
+    <setting var="powered_by" control_type="text">
+      <value>Webasyst</value>
+      <name locale="en_US">Powered by</name>
+      <name locale="ru_RU">Строка "Powered by" в подвале</name>
+    </setting>
+  </settings>
+  <locales>
+    <locale>
+      <msgid>pcs</msgid>
+      <msgstr locale="ru_RU">шт.</msgstr>
+    </locale>
+    <locale>
+      <msgid>Products</msgid>
+      <msgstr locale="ru_RU">Каталог товаров</msgstr>
+    </locale>
+    <locale>
+      <msgid>Latest news</msgid>
+      <msgstr locale="ru_RU">Новости</msgstr>
+    </locale>
+    <locale>
+      <msgid>Latest photos</msgid>
+      <msgstr locale="ru_RU">Последние фото</msgstr>
+    </locale>
+    <locale>
+      <msgid>Recent products list</msgid>
+      <msgstr locale="ru_RU">Вы недавно смотрели</msgstr>
+    </locale>
+    <locale>
+      <msgid>Customers who bought this product also purchased</msgid>
+      <msgstr locale="ru_RU">С этим товаром также покупают</msgstr>
+    </locale>
+    <locale>
+      <msgid>View:</msgid>
+      <msgstr locale="ru_RU">Вид:</msgstr>
+    </locale>
+    <locale>
+      <msgid>Item in cart</msgid>
+      <msgstr locale="ru_RU">Товар в корзине</msgstr>
+    </locale>
+    <locale>
+      <msgid>Show filters</msgid>
+      <msgstr locale="ru_RU">Показать фильтры</msgstr>
+    </locale>
+    <locale>
+      <msgid>Recalculate</msgid>
+      <msgstr locale="ru_RU">Пересчитать</msgstr>
+    </locale>
+  </locales>
+</theme>

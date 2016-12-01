@@ -1,0 +1,43 @@
+<div class="app-navigation app-navigation-h{if !empty($theme_settings.use_categories_icons)} with-icons{/if}">
+
+    {if $wa->shop && $wa->shop->categories()}
+
+        {if isset($category)}{$_cid = $category.id}{else}{$_cid = null}{/if}
+        {*if isset($category)}{if !empty($category.parent_id)}{$_cid = $category.parent_id}{else}{$_cid = $category.id}{/if}{else}{$_cid = null}{/if*}
+        {if $theme_settings.page_nav_mode == 'accordion'}{$_class = 'menu-h dropdown'}{else}{$_class = "menu-h `$theme_settings.page_nav_mode`"}{/if}
+        {if empty($theme_settings.horizontal_categories_menu) && empty($theme_settings.hide_sidebar)}{$_class = "`$_class` mobile-only"}{/if}
+
+        <!-- category tree -->
+        <ul class="{$_class}">
+            {foreach $wa->shop->categories(0,3,true) as $c}
+                {$_class = ''}
+                {if $_cid == $c.id}{$_class = 'selected'}{/if}
+                {if $c.childs}{$_class = "`$_class` collapsible"}{/if}
+                {$_class = trim($_class)}
+                <li{if $_class} class="{$_class}"{/if}>
+                    <a href="{$c.url}">
+                        {if !empty($theme_settings.use_categories_icons)}<img src="{ifset($theme_settings.img_url)}/{$c.full_url}.png" /><br />{/if}
+                        {$c.name}
+                    </a>
+                    {if $c.childs}
+
+                        {$_style = ''}
+                        {if $theme_settings.page_nav_mode == 'full'}
+                            {$_col_num = max(1, intval(count($c.childs) / 5))}
+                            {$_style = "-webkit-column-count:`$_col_num`; -moz-column-count:`$_col_num`; column-count:`$_col_num`;"}
+                        {/if}
+
+                        {if count($c.childs) > 10}{$style = ' condensed'}{else}{$style = ''}{/if}
+                        {wa_print_tree tree=$c.childs unfolded=true selected=$_cid class="menu-v category-tree dhtml`$style`" attrs="style=\"`$_style`\""
+                            collapsible_class='collapsible' elem='<a href=":url">:name</a>'}
+                    {/if}
+                </li>
+            {/foreach}
+        </ul>
+        <!-- eof category tree -->
+
+    {/if}
+
+    <div class="clear-both"></div>
+
+</div>

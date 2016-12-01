@@ -1,0 +1,99 @@
+<!-- products thumbnail list view -->
+
+{if !empty($sorting)}
+    <!-- sorting -->
+    {$sort_fields = [
+        'name' => '[`Name`]',
+        'price' => '[`Price`]',
+        'total_sales' => '[`Bestsellers`]',
+        'rating' => '[`Customer rating`]',
+        'create_datetime'=>'[`Date added`]',
+        'stock' => '[`In stock`]']}
+    {if !isset($active_sort)}
+        {$active_sort = $wa->get('sort', 'create_datetime')}
+    {/if}
+    <ul class="menu-h sorting">
+        <li>[`Sort by`]:</li>
+        {if !empty($category) && !$category.sort_products}
+            <li{if !$active_sort} class="selected"{/if}><a href="{$wa->currentUrl(0, 1)}">[`New & Popular`]</a></li>
+        {/if}
+        {foreach $sort_fields as $sort => $name}
+            <li{if $active_sort == $sort} class="selected"{/if}>{$wa->shop->sortUrl($sort, $name, $active_sort)}</li>
+            {if $wa->get('sort') == $sort}{$wa->title( $wa->title()|cat:' — '|cat:$name)}{/if}
+        {/foreach}
+    </ul>
+{/if}
+
+<ul class="thumbs li250px product-list">
+    {$_size = '200x0'}
+    {foreach $products as $p}
+        {if empty($p.min_price) || empty($p.max_price) || $p.min_price == $p.max_price}
+            {$_price = shop_currency_html($p.price)}
+        {else}
+            {$_price = shop_currency_html($p.min_price)|cat:' ... '|cat:shop_currency_html($p.max_price)}
+        {/if}
+        {$available = $wa->shop->settings('ignore_stock_count') || $p.count === null || $p.count > 0}
+        <li itemscope itemtype ="http://schema.org/Product">
+            <div class="image">
+                <a href="{$p.frontend_url}" title="{$p.name}">
+                    {$badge_html = $wa->shop->badgeHtml($p.badge)}
+                    {if $badge_html}
+                        <div class="corner top right">{$badge_html}</div>
+                    {/if}
+                    {$wa->shop->productImgHtml($p, $_size, ['itemprop' => 'image', 'alt' => $p.name, 'default' => "`$wa_theme_url`img/dummy$_size.png"])}
+                </a>
+            </div>
+            <a href="{$p.frontend_url}" title="{$p.name}{if $p.summary} &mdash; {strip_tags($p.summary)}{/if}">
+                <span class="itme_t" itemprop="name">
+                    {$p.name}
+                </span>
+            </a>
+            {if $p.summary}<span itemprop="description" class="summary">{$p.summary|truncate:100}</span>{/if}
+            {if $p.rating > 0}
+                <span class="rating nowrap">{$wa->shop->ratingHtml($p.rating, 16)}</span>
+            {/if}
+            <div itemprop="offers" class="offers" itemscope itemtype="http://schema.org/Offer">
+                {if $p.compare_price > 0}<span class="compare-at-price nowrap">{shop_currency_html($p.compare_price)}  </span>{/if}
+                {if $available}
+                    <span class="price nowrap" itemprop="price">{$_price}</span>
+                    <link itemprop="availability" href="http://schema.org/InStock" />
+                {else}
+                    <span class="price nowrap" itemprop="price">{$_price}</span>
+                    <div class="out-of-stock"><span class="netvnalichii">{if $wa->shop->settings('ignore_stock_count')}[`Pre-order only`]{else}[`Out of stock`]{/if}</span></div>
+                    <link itemprop="availability" href="http://schema.org/OutOfStock" />
+                {/if}
+            </div>
+            {if $available}
+                <div class="button">
+                    <form class="addtocart" {if $p.sku_count > 1 && !$wa->isMobile()}data-url="{$p.frontend_url}{if strpos($p.frontend_url, '?')}&{else}?{/if}cart=1"{/if}
+                        method="post" action="{$wa->getUrl('/frontendCart/add')}">
+                        <input type="hidden" name="product_id" value="{$p.id}">
+                        <input type="submit" value="[`Add to cart`]" onmousedown="try { rrApi.addToBasket({$p.id}) } catch(e) {}">
+                        <span class="added2cart" style="display:none;"><a href="{$wa->getUrl('shop/frontend/cart')}">[`Item in cart`]</a></span>
+                    </form>
+                </div>
+            {/if}
+        </li>
+    {/foreach}
+</ul>
+
+{if isset($pages_count) && $pages_count > 1}
+<div class="block {if $theme_settings.pagination == 'lazyloading'}lazyloading-paging{else}paging-nav{/if}" data-times="2" data-link-text="[`Load more`]" data-loading-str="[`Loading...`]">
+    {wa_pagination total=$pages_count attrs=['class' => "menu-h"]}
+</div>
+{/if}
+
+<script>
+$(function() {
+    var product_list_item_height = 0, h = 0;
+    $('#product-list ul.product-list li').each(function(i) {
+        h = $(this).height();
+        if (h > product_list_item_height) {
+            product_list_item_height = h;
+        }
+    });
+    if (product_list_item_height) {
+        $('#product-list ul.product-list li').css('height', product_list_item_height + 'px');
+    }
+});
+</script>

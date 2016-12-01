@@ -1,0 +1,47 @@
+{* @event (frontend_action_default|frontend_action_post|frontend_action_page|frontend_action_error).%plugin_id%.nav_before *}
+{foreach $frontend_action as $plugin => $output}
+	{if !empty($output.nav_before)}{$output.nav_before}{/if}
+{/foreach}
+
+{$_class = ''}
+{if empty($theme_settings.hide_sidebar)}
+    {include file="sidebar.html"}
+    {$_class = ' left'}
+{/if}
+
+{if $wa->block("shop.right_sidebar")}
+    <div class="sidebar right">{$wa->block("shop.right_sidebar")}</div>
+    {$_class = $_class|cat:' right'}
+{/if}
+
+<div class="content{$_class}">
+    <div class="float-left wide">
+
+        {include file="`$wa_active_theme_path`/navigation.html"}
+
+    {if !$wa->blog->posts() && $wa->currentUrl() == $wa_app_url}
+
+        <div class="welcome">
+            <h1>[`Welcome to your new blog!`]</h1>
+            <p>{sprintf('[`Start by writing a post in your <a href="%s">blog backend</a>.`]', $wa_backend_url|cat:'blog/')}</p>
+        </div>
+
+    {else}
+
+        <!-- internal navigation breadcrumbs -->
+        {if isset($breadcrumbs)}
+        <div class="breadcrumbs">
+            {foreach $breadcrumbs as $breadcrumb}
+                <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a> <span class="rarr">&rarr;</span>
+            {/foreach}
+        </div>
+        {/if}
+
+        {$content}
+
+    {/if}
+
+    </div>
+</div>
+
+<div class="clear-both"></div>

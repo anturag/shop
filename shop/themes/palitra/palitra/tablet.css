@@ -1,0 +1,19 @@
+/*
+ * Light theme family
+ *
+ * Additional CSS for tablet computers (e.g. iPad)
+ * (requires linking core.css)
+ *
+ */
+
+body { -webkit-text-size-adjust: 100%; }
+
+.container { padding-left: 15px; padding-right: 15px; }
+.content { padding: 0; }
+
+.app-navigation ul.menu-h li a { max-width: 120px; }
+
+.block-phones, .block-address { font-size: 12px; }
+
+#header .auth i { margin-top: -4px; }
+#footer i.icon16 { margin-top: -2px; }

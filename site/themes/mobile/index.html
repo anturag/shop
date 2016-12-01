@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru-RU" class="{if $wa->globals('isMyAccount')}is-my-account{/if}">
+<head>
+    {include file="layout-head.html" inline}
+ <!-- Google Tag Manager -->
+
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5T9RFF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+    <!-- HEADER -->
+    {include file="layout-header.html" inline}
+    <!-- END HEADER -->
+
+    <!-- WRAPPER -->
+    <div class="site-wrapper">
+        <!-- CONTENT -->
+        {include file="`$wa_active_theme_path`/main.html" inline}
+        <!-- END CONTENT -->
+    </div>
+    <!-- /WRAPPER -->
+
+    <!--HIDDEN MENU-->
+    {include file="layout-menu.html" inline}
+    <!--HIDDEN MENU-->
+</body>
+</html>
